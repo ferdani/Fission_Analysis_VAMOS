@@ -18,5 +18,4 @@ _pycache_
 # Others
 .DS_Store
 *_temp/
-raw_root_files
-Outputfiles
+Data_hdf5
