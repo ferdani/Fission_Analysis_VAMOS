@@ -64,7 +64,7 @@ else:
     Tree_branches = 'All' #take all the branches by default
 
 """The name of each root file in an array, 14 degrees and 21 degrees collections (without .root extension)"""
-if samples == 'PRUEBA':
+if samples == 'TEST':
     samples_names = ['r0092_000a']
 if samples == '14':
     samples_names = ['r0092_000a', 'r0093_000a', 'r0094_000a', 'r0095_000a', 'r0097_000a', 'r0098_000a',
@@ -93,7 +93,7 @@ Folder_path = basepath + 'Data_hdf5/'
 
 File_name = [filename]
 Group_name = 'All' #write all the names, one per variable.
-Cfun.Save_data_HDF5(Folder_path, File_name, Group_name, file_data, compression) #put directly the data array and the compression level
+Cfun.Save_array_matrix_data_to_HDF5(Folder_path, File_name, Group_name, file_data, compression) #put directly the data array and the compression level
 
 print('\n')
 print('The file is in: ' + Folder_path)

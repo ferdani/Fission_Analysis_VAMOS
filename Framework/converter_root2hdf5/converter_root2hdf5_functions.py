@@ -22,11 +22,11 @@ import sys, os
 import h5py
 
 '''
-------------------------------------------------- Read .root files and converts to arrays --------------------------------------------------------------------------------------------------
+------------------------------------------------- Reads .root files and converts to arrays --------------------------------------------------------------------------------------------------
 '''
 
 def Branches_to_Arrays(Path_to_tree, Tree_names, Tree_name_inside, Branches, Tree_selection = None):
-        """Transform .root file with branches to array of arrays (similar a dictionary).
+        """Transform .root file with branches to array of arrays (similar as a dictionary).
 
         Returns an array of arrays where each array will be a branch
         This function use root2array wich is a root_numpy's function.
@@ -83,7 +83,7 @@ def Branches_to_Arrays(Path_to_tree, Tree_names, Tree_name_inside, Branches, Tre
 ----------------------------- Save array-matrix data in hdf5 format  -----------------------------------------------------------------------------------------------------------------------
 '''
 
-def Save_data_HDF5(Folder_path, File_name, Group_name, data_in_matrix, File_compression = None):
+def Save_array_matrix_data_to_HDF5(Folder_path, File_name, Group_name, data_in_matrix, File_compression = None):
         """Save the data in columns in the hdf5 format in a folder.
 
         More information here: https://www.pythonforthelab.com/blog/how-to-use-hdf5-files-in-python/
