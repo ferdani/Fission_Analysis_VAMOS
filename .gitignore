@@ -19,3 +19,4 @@ _pycache_
 .DS_Store
 *_temp/
 Data_hdf5
+Modules/*/Outputfiles/*
