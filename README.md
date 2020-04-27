@@ -27,7 +27,8 @@ pip install -r requirements.txt
 ```
 
 ## How to use<br/>
-Use with python 3.7.3 , with ROOT 6.17/01 and with root_numpy. Open a new terminal inside the Code-Folder:<br/r>
+Use with python 3.7.3 , with ROOT 6.17/01 and with root_numpy. Open a new terminal inside the Code-Folder:
+
 Load ROOT:
 ```bash
 source <Path_to_folder>/bin/thisroot.sh
