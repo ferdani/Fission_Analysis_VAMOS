@@ -17,7 +17,7 @@ sudo pip install virtualenv
 ```bash
 virtualenv -p python3 <VirtualEnvNameYouWant>
 ```
-Now, a virtual environment with this name <VirtualEnvNameYouWant> is created. Enter inside the virtual environment
+Now, a virtual environment is created. Enter inside the virtual environment
 ```bash
 source <PathToVirtualEnv>/<VirtualEnvNameYouWant>/bin/activate
 ```
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```
 
 ## How to use<br/>
-Use with python 3.7.3 , with ROOT 6.17/01 and with root_numpy. Open a new terminal inside the Code-Folder:
+Use with python 3.7.3 , with ROOT 6.17/01 and with root_numpy. Open a new terminal inside the Code-Folder:<br/r>
 Load ROOT:
 ```bash
 source <Path_to_folder>/bin/thisroot.sh
