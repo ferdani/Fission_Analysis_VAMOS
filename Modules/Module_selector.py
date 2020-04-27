@@ -47,16 +47,24 @@ if module_name == 'Testing':
     #from .Testing import Testing
 
     #way 2:
-    importlib.import_module('.Testing','Modules.Testing')
+    #importlib.import_module('.Testing','Modules.Testing')
 
     #way 3:
     #os.system('python ./Modules/Testing/Testing.py') #With this way you are running like an independent script and root_numpy has got problems. Work in progress
 
+    #way 4:
+    exec(open('Modules/Testing/Testing.py').read())
+
 if module_name == 'DCs_Calibration':
-    importlib.import_module('.DCs_Calibration','Modules.DCs_Calibration')
+    exec(open('Modules/DCs_Calibration/DCs_Calibration.py').read())
 
 if module_name == 'Phi_Acceptance':
-    importlib.import_module('.Phi_Acceptance','Modules.Phi_Acceptance')
+    exec(open('Modules/Phi_Acceptance/Phi_Acceptance.py').read())
 
 if module_name == 'dE_vs_E':
-    importlib.import_module('.dE_vs_E','Modules.dE_vs_E')
+    exec(open('Modules/dE_vs_E/dE_vs_E.py').read())
+
+
+print('Exiting Module_selector...')
+print('\n')
+sys.exit()
