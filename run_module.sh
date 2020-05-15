@@ -14,10 +14,10 @@ The control area to run an independent module:
 
 ####################################### Modules Command List ###################################################
 #----------------------- 0 - Module - Testing --------------------------------------------------
-python -i Modules/Module_selector.py 'Testing'
+#python -i Modules/Module_selector.py 'Testing'
 
 #----------------------- 1 - Module - DCs_Calibration --------------------------------------------------
-#python -i -c 'from Modules import Module_selector' 'DCs_Calibration'
+python -i Modules/Module_selector.py 'DCs_Calibration'
 
 #----------------------- 2 - Module - Phi_Acceptance --------------------------------------------------
 #python -i -c 'from Modules import Module_selector' 'Phi_Acceptance'
