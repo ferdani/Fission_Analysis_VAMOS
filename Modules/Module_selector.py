@@ -65,6 +65,7 @@ if module_name == 'dE_vs_E':
     exec(open('Modules/dE_vs_E/dE_vs_E.py').read())
 
 
+print('\n')
 print('Exiting Module_selector...')
 print('\n')
 sys.exit()
