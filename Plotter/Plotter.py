@@ -497,7 +497,7 @@ class Plotter(object):
         plt.ioff() #inline mode off
         ax = fig.add_subplot(111)
 
-        plt.rcParams['agg.path.chunksize'] = 1000 #If exist a problem doing zoom is here with chunks. It works with TkAgg matplotlib backend
+        plt.rcParams['agg.path.chunksize'] = 100 #If exist a problem doing zoom is here with chunks. It works with TkAgg matplotlib backend
 
         # Plot 2D histogram using pcolormesh
         plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet')
@@ -570,8 +570,6 @@ class Plotter(object):
         fig = plt.figure(figsize=self.FigSize)
         plt.ioff() #inline mode off
         ax = fig.add_subplot(111, projection='3d')
-
-        plt.rcParams['agg.path.chunksize'] = 1000 #If exist a problem doing zoom is here with chunks. It works with TkAgg matplotlib backend
 
         # Make histogram stuff with numpy in 2d
         if self.bin_x and self.bin_y:
