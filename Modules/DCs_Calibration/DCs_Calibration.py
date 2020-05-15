@@ -284,36 +284,37 @@ for DCn in range(0, 4):
         func = TF1('func', '[0] + [1]*x', 0, 2500)
 
         #Conditions over each channel and specific DC, where xmin and xmax are the limits of linear fit
+        xmin = 0.0 #By default
         if DCn == 0:
             if   number == 0: xmax = 1000
-            elif number == 1: xmax = 1700
+            elif number == 1: xmax = 1700; xmin = 250
             elif number == 157: xmax = 1700
             elif number == 158: xmax = 1200
-            elif number == 159: xmax = 2500
+            elif number == 159: xmax = 2500; xmin = 400
         if DCn == 1:
             if   number == 0: xmax = 150
             elif number == 1: xmax = 1000
             elif number == 2: xmax = 2000
-            elif number == 3: xmax = 2300
+            elif number == 3: xmax = 2300; xmin = 100
             elif number == 4: xmax = 100
             elif number == 157: xmax = 2300
             elif number == 158: xmax = 1500
             elif number == 159: xmax = 0
         if DCn == 2:
             if   number == 0: xmax = 0
-            elif number == 1: xmax = 1800
+            elif number == 1: xmax = 1800; xmin = 100
             elif number == 157: xmax = 1600
             elif number == 158: xmax = 0
             elif number == 159: xmax = 0
         if DCn == 3:
             if   number == 0: xmax = 250
-            elif number == 1: xmax = 1400
-            elif number == 2: xmax = 2250
+            elif number == 1: xmax = 1400; xmin = 250
+            elif number == 2: xmax = 2250; xmin = 250
             elif number == 157: xmax = 2300
             elif number == 158: xmax = 1600
             elif number == 159: xmax = 1100
 
-        fit = h_Q60vsQ.Fit('func', 'SQ', '', 0.0, xmax) #Work in progress: implement the xmin like xmax to correct more
+        fit = h_Q60vsQ.Fit('func', 'SQ', '', xmin, xmax)
 
         p0 = func.GetParameter(0)
         p1 = func.GetParameter(1)
@@ -363,13 +364,13 @@ for DCn in range(0, 4):
 
 for DCn in range(0, 4):
 
-    c3 = TCanvas('c1', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 400, 100, 1000, 700 )
+    c3 = TCanvas('c1', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 500, 150, 1000, 700 )
     c3.SetFillColor(0)
     c3.GetFrame().SetFillColor(21)
     c3.GetFrame().SetBorderSize(6)
     c3.GetFrame().SetBorderMode(-1)
 
-    h_DCQV_DCQVN = TH2F('h_DCQV_DCQVN', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 160, 0, 160, 1000, 0, 2600)
+    h_DCQV_DCQVN = TH2F('h_DCQV_DCQVN', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 160, 0, 160, 500, 0, 2600)
 
     h_DCQV_DCQVN.SetFillColor(42)
     h_DCQV_DCQVN.SetYTitle('DC' + str(DCn) + '_QV')
