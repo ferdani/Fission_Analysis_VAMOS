@@ -16,6 +16,8 @@ sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
+Module_path = basepath + '/Modules/Testing/'
+sys.path.append(Module_path)
 #print('We are working from here' + os.getcwd())
 
 '''
