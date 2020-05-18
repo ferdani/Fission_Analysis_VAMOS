@@ -206,13 +206,20 @@ for j in range(0, 4): #4 Drift Chambers
             myfile.write("//Energy Wire calib\n")
             myfile.write("0. 1. 0\n")
             myfile.write("//Time Wire calib\n")
-            myfile.write("0. 0.250921 0\n")
+            if j==0:
+                myfile.write("0. 0.250921 0\n")
+            elif j==1:
+                myfile.write("0. 0.24323 0\n")
+            elif j==2:
+                myfile.write("0. 0.25059 0\n")
+            elif j==3:
+                myfile.write("0. 0.242188 0\n")
             myfile.write("//Charge Strip calib\n")
             myfile.write("// Format  : a0 	 a1 	 a2 	 // ParameterName)\n")
-            myfile.write("%f  %f  0.00000 // 0 ch %s\n" %(a0, a1, str(i)))
+            myfile.write("%f  %f   0.00000 // %i ch %s\n" %(a0, a1, j, str(i)))
 
         else:
-            myfile.write("%f  %f  0.00000 // 0 ch %s\n" %(a0, a1, str(i)))
+            myfile.write("%f  %f   0.00000 // %i ch %s\n" %(a0, a1, j, str(i)))
 
         del h_Q60vsQ
         del func
@@ -247,9 +254,16 @@ for DCn in range(0, 4):
     cal_file.write("//Energy Wire calib\n")
     cal_file.write("0. 1. 0\n")
     cal_file.write("//Time Wire calib\n")
-    cal_file.write("0. 0.250921 0\n")
+    if DCn==0:
+        cal_file.write("0. 0.250921 0\n")
+    elif DCn==1:
+        cal_file.write("0. 0.24323 0\n")
+    elif DCn==2:
+        cal_file.write("0. 0.25059 0\n")
+    elif DCn==3:
+        cal_file.write("0. 0.242188 0\n")
     cal_file.write("//Charge Strip calib\n")
-    cal_file.write("// Format  : a0 	 a1 	 a2 	 // ParameterName)\n")
+    cal_file.write("// Format  : a0 	 a1 	 a2 	 // ParameterName\n")
 
     for line_index, line in enumerate(NoCorrected_file):
         if line_index > 14: #skip the initial 14 lines
@@ -342,7 +356,7 @@ for DCn in range(0, 4):
         a0 = p0 + p1 * a0_old
         a1 = p1 * a1_old
 
-        content[number+15] = "%f  %f  0.00000 // 0 ch %s\n" %(a0, a1, str(number)) #replaces content
+        content[number+15] = "%f  %f  0.00000 // %i ch %s\n" %(a0, a1, DCn, str(number)) #replaces content
 
         cal_file.close()
         cal_file = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC' + str(DCn) + '.cal', 'w') #clears content of file.
@@ -370,7 +384,7 @@ for DCn in range(0, 4):
     c3.GetFrame().SetBorderSize(6)
     c3.GetFrame().SetBorderMode(-1)
 
-    h_DCQV_DCQVN = TH2F('h_DCQV_DCQVN', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 160, 0, 160, 500, 0, 2600)
+    h_DCQV_DCQVN = TH2F('h_DCQV_DCQVN', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 160, 0, 160, 500, -50, 2600)
 
     h_DCQV_DCQVN.SetFillColor(42)
     h_DCQV_DCQVN.SetYTitle('DC' + str(DCn) + '_QV')
