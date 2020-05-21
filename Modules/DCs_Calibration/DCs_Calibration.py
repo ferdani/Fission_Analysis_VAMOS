@@ -344,7 +344,7 @@ for DCn in range(0, 4):
         del func
         del fit
 
-        #Open the calibartion file to change the new parameters in the specific channels.
+        #Open the calibration file to change the new parameters in the specific channels.
         cal_file = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC' + str(DCn) + '.cal', 'r+')
         content = cal_file.readlines() #reads line by line and out puts a list of each line
 
@@ -372,17 +372,126 @@ for DCn in range(0, 4):
 
     c2.Close()
 
+####################################################################################################################################################
+####################### Second order correction. Seeing the results of  (DC2_QV vs DC2_QVN) exist some channels with a hole ########################
+####################################################################################################################################################
+
+# Open DC2.cal file to read the last correction
+DC2 = open(Module_path + '/Outputfiles/Calibration_files/DC2.cal', 'r')
+
+# Open DC2_new.cal to apply second order correction over some channels
+DC2_new = open(Module_path + '/Outputfiles/Calibration_files/DC2_new.cal', 'w')
+
+DC2_new.write("// Title   : Second order calibration file for <DC2><> :\n")
+DC2_new.write("// Date : " + str(datetime.datetime.now()) + ":\n")
+DC2_new.write("// Comment :\n")
+DC2_new.write("// Reference Position X Y (Z+150mm due to the new FPMW)\n")
+DC2_new.write("-463.00 -80.56 7839.5\n")
+DC2_new.write("// DriftVelocity cm/us   new DC 23/09/2010 MR\n")
+DC2_new.write("5.387\n")
+DC2_new.write("// QThresh\n")
+DC2_new.write("0.01\n")
+DC2_new.write("//Energy Wire calib\n")
+DC2_new.write("0. 1. 0\n")
+DC2_new.write("//Time Wire calib\n")
+DC2_new.write("0. 0.25059 0\n")
+DC2_new.write("//Charge Strip calib\n")
+DC2_new.write("// Format  : a0 	 a1 	 a2 	 // ParameterName\n")
+
+for line_index, line in enumerate(DC2):
+    if line_index > 14: #skip the initial 14 lines
+        DC2_new.write(line)
+
+DC2_new.close()
+DC2.close()
+
+#Channel numbers to apply second order:
+Channels_2nd = [140, 141, 142, 143, 144, 145, 146, 147, 148, 149]
+
+# Create a new canvas, and customize it.
+c3 = TCanvas('c3', 'DC2_calibration_2nd_order', 400, 100, 1000, 700 )
+c3.SetFillColor(0)
+c3.GetFrame().SetFillColor(21)
+c3.GetFrame().SetBorderSize(6)
+c3.GetFrame().SetBorderMode(-1)
+
+for ch in Channels_2nd:
+    histo_Q60_vs_ch = TH2F('histo_Q60_vs_ch', 'DC2_QV[60]:DC2_QV[' + str(ch) + ']', 1000, 0, 3000, 1000, 0, 3000)
+    histo_Q60_vs_ch.SetFillColor(42)
+    histo_Q60_vs_ch.SetYTitle('DC2_QV[60]')
+    histo_Q60_vs_ch.SetXTitle('DC2_QV[' + str(ch) + ']')
+
+    gStyle.SetOptStat(1000000001) #only write the name of the histogram
+
+    mitree.Draw("DC2_QV[60]:DC2_QV[" + str(ch) + "]>>histo_Q60_vs_ch","","col")
+    func_2nd_order = TF1('func_2nd_order', '[0] + [1]*x + [2]*x**2', 0, 2700)
+
+    #By default
+    xmin = 0.0
+    xmax = 2700.0
+
+    fit_2nd_order = histo_Q60_vs_ch.Fit('func_2nd_order', 'SQ', '', xmin, xmax)
+
+    p0 = func_2nd_order.GetParameter(0)
+    p1 = func_2nd_order.GetParameter(1)
+    p2 = func_2nd_order.GetParameter(2)
+
+    gStyle.SetOptFit(1) #draw fit stats
+    gStyle.SetStatX(0.96)
+    gStyle.SetStatY(0.5)
+
+    c3.Update()
+    c3.SaveAs(Module_path + '/Outputfiles/Figures/2nd_order_corrected_figures/' + 'DC2_QV[60]:DC2_QV[' + str(ch) + '].png')
+
+    del histo_Q60_vs_ch
+    del func_2nd_order
+    del fit_2nd_order
+
+    #Open the calibration file to change the new parameters in the specific channels.
+    DC2_new = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal', 'r+')
+    content_DC2_new = DC2_new.readlines() #reads line by line and out puts a list of each line
+
+    #Re-evaluate the parameters with the new values
+    data_line_DC2_new = content_DC2_new[ch+15].split() #+15 skipping the first lines
+    a0_old = float(data_line_DC2_new[0])
+    a1_old = float(data_line_DC2_new[1])
+    a2_old = float(data_line_DC2_new[2]) #It is zero generally, so it is not important and is not apply
+
+    #Second correction over previous values
+    a0 = p0 + p1 * a0_old
+    a1 = p1 * a1_old
+    '''------------------work in progress. Is not clear and right---------------'''
+    a2 = (p2 * a0_old**2 + p2 * a1_old**2 + 2*p2 * a0_old * a1_old)*10**(-6)
+    '''-------------------------------------------------------------------------'''
+    content_DC2_new[ch+15] = "%f  %f  %f // %i ch %s\n" %(a0, a1, a2, 2, str(ch)) #replaces content_DC2_new
+
+    DC2_new.close()
+    DC2_new = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal', 'w') #clears content of file.
+    DC2_new.close()
+    DC2_new = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal', 'r+')
+
+    for item in content_DC2_new: #rewrites file content from list
+        DC2_new.write("%s" % item)
+    del content_DC2_new
+    DC2_new.close()
+
+print('\n')
+print('The file: ' + Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal' + ' was saved\n')
+
+c3.Close()
+
+
 #######################################################################################################################################################
 ############### Fit the results: (DC0_QV vs DC0_QVN) , (DC1_QV vs DC1_QVN) ,  (DC2_QV vs DC2_QVN) , (DC3_QV vs DC3_QVN) ###############################
 #######################################################################################################################################################
 
 for DCn in range(0, 4):
 
-    c3 = TCanvas('c1', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 500, 150, 1000, 700 )
-    c3.SetFillColor(0)
-    c3.GetFrame().SetFillColor(21)
-    c3.GetFrame().SetBorderSize(6)
-    c3.GetFrame().SetBorderMode(-1)
+    c4 = TCanvas('c4', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 500, 150, 1000, 700 )
+    c4.SetFillColor(0)
+    c4.GetFrame().SetFillColor(21)
+    c4.GetFrame().SetBorderSize(6)
+    c4.GetFrame().SetBorderMode(-1)
 
     h_DCQV_DCQVN = TH2F('h_DCQV_DCQVN', 'DC' + str(DCn) + '_QV vs DC' + str(DCn) + '_QVN', 160, 0, 160, 500, -50, 2600)
 
@@ -390,11 +499,18 @@ for DCn in range(0, 4):
     h_DCQV_DCQVN.SetYTitle('DC' + str(DCn) + '_QV')
     h_DCQV_DCQVN.SetXTitle('DC' + str(DCn) + '_QVN')
 
+    gStyle.SetStatY(0.74);
+    gStyle.SetStatX(0.99);
+    gStyle.SetStatW(0.13);
+    gStyle.SetStatH(0.13);
+
     mitree.Draw("DC" + str(DCn) + "_QV:DC" + str(DCn) + "_QVN>>h_DCQV_DCQVN","","col")
-    c3.SetLogz()
-    c3.Update()
-    c3.SaveAs(Module_path + '/Outputfiles/Figures/Final_Results/DC' + str(DCn) + '_QV--DC' + str(DCn) + '_QVN.png')
+
+    c4.SetLogz()
+    c4.Update()
+    c4.SaveAs(Module_path + '/Outputfiles/Figures/Final_Results/DC' + str(DCn) + '_QV--DC' + str(DCn) + '_QVN.png')
+    #c4.SaveAs(Module_path + '/Outputfiles/Figures/Final_Results/New_post_MyVAna_calibration/DC' + str(DCn) + '_QV--DC' + str(DCn) + '_QVN_post_MyVAna.png')
 
     del h_DCQV_DCQVN
 
-    c3.Close()
+    c4.Close()
