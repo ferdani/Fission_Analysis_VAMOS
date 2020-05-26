@@ -198,7 +198,14 @@ for j in range(0, 4): #4 Drift Chambers
             myfile.write("// Date : " + str(datetime.datetime.now()) + ":\n")
             myfile.write("// Comment :\n")
             myfile.write("// Reference Position X Y (Z+150mm due to the new FPMW)\n")
-            myfile.write("-463.00 -80.56 7839.5\n")
+            if j==0:
+                myfile.write("-463.00 -80.56 7839.5\n")
+            elif j==1:
+                myfile.write("-463.00 -80.75 7879.5\n")
+            elif j==2:
+                myfile.write("-463.30 -83.64 8119.8\n")
+            elif j==3:
+                myfile.write("-463.40 -83.90 8159.8\n")
             myfile.write("// DriftVelocity cm/us   new DC 23/09/2010 MR\n")
             myfile.write("5.387\n")
             myfile.write("// QThresh\n")
@@ -246,7 +253,14 @@ for DCn in range(0, 4):
     cal_file.write("// Date : " + str(datetime.datetime.now()) + ":\n")
     cal_file.write("// Comment :\n")
     cal_file.write("// Reference Position X Y (Z+150mm due to the new FPMW)\n")
-    cal_file.write("-463.00 -80.56 7839.5\n")
+    if j==0:
+        cal_file.write("-463.00 -80.56 7839.5\n")
+    elif j==1:
+        cal_file.write("-463.00 -80.75 7879.5\n")
+    elif j==2:
+        cal_file.write("-463.30 -83.64 8119.8\n")
+    elif j==3:
+        cal_file.write("-463.40 -83.90 8159.8\n")
     cal_file.write("// DriftVelocity cm/us   new DC 23/09/2010 MR\n")
     cal_file.write("5.387\n")
     cal_file.write("// QThresh\n")
@@ -386,7 +400,7 @@ DC2_new.write("// Title   : Second order calibration file for <DC2><> :\n")
 DC2_new.write("// Date : " + str(datetime.datetime.now()) + ":\n")
 DC2_new.write("// Comment :\n")
 DC2_new.write("// Reference Position X Y (Z+150mm due to the new FPMW)\n")
-DC2_new.write("-463.00 -80.56 7839.5\n")
+DC2_new.write("-463.30 -83.64 8119.8\n")
 DC2_new.write("// DriftVelocity cm/us   new DC 23/09/2010 MR\n")
 DC2_new.write("5.387\n")
 DC2_new.write("// QThresh\n")
