@@ -8,8 +8,9 @@ dani.fernandez@usc.es
 The control area to run an independent module:
 0 --> Testing
 1 --> DCs_Calibration
-2 --> Phi_Acceptance
-3 --> dE_vs_E
+2 --> DCs_X_Y_Theta_Phi_FP
+3 --> Phi_Acceptance
+4 --> dE_vs_E
 '
 
 ####################################### Modules Command List ###################################################
@@ -17,10 +18,13 @@ The control area to run an independent module:
 #python -i Modules/Module_selector.py 'Testing'
 
 #----------------------- 1 - Module - DCs_Calibration --------------------------------------------------
-python -i Modules/Module_selector.py 'DCs_Calibration'
+#python -i Modules/Module_selector.py 'DCs_Calibration'
 
-#----------------------- 2 - Module - Phi_Acceptance --------------------------------------------------
+#----------------------- 2 - Module - DCs_X_Y_Theta_Phi_FP --------------------------------------------------
+python -i Modules/Module_selector.py 'DCs_X_Y_Theta_Phi_FP'
+
+#----------------------- 3 - Module - Phi_Acceptance --------------------------------------------------
 #python -i -c 'from Modules import Module_selector' 'Phi_Acceptance'
 
-#----------------------- 3 - Module - dE_vs_E --------------------------------------------------
+#----------------------- 4 - Module - dE_vs_E --------------------------------------------------
 #python -i -c 'from Modules import Module_selector' 'dE_vs_E'
