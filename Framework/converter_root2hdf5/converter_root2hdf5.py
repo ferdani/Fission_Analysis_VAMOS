@@ -30,7 +30,7 @@ my_parser.add_argument('-s', '--samples', help='Name of the samples to do analys
 my_parser.add_argument('-b', '--branches', default=None, help='Name of each branch one wants from .root file by default All. Ex: Z,Q,Qi', type=str)
 my_parser.add_argument('-p', '--preselection', default=None, help='Complete pre-selection over the root files. Ex: Z > 0.0 && Q == 2.0', type=str)
 my_parser.add_argument('-n', '--filename', default='', help='Add a file name to hdf5 data', type=str)
-my_parser.add_argument('-c', '--compression', default=4, help='You can compress the file in the saved from 4 to 9 increasing the compression. By default: 4', type=int)
+my_parser.add_argument('-c', '--compression', default=None, help='You can compress the file in the saved from 4 to 9 increasing the compression. By default: 4', type=int)
 
 args = my_parser.parse_args()
 
@@ -73,14 +73,14 @@ if samples == '14':
 if samples == '21':
     samples_names = ['r0115_000a', 'r0116_000a', 'r0117_000a', 'r0118_000a', 'r0119_000a','r0121_000a',
                     'r0122_000a', 'r0123_000a', 'r0124_000a','r0125_000a', 'r0126_000a']
-if samples == 'All_Trees':
+if (samples == 'All_Trees') or (samples == '14+21') or (samples == '14 + 21'):
     samples_names = ['r0092_000a', 'r0093_000a', 'r0094_000a', 'r0095_000a', 'r0097_000a', 'r0098_000a',
                     'r0099_000a', 'r0100_000a', 'r0101_000a', 'r0102_000a', 'r0103_000a', 'r0104_000a',
                     'r0105_000a', 'r0106_000a', 'r0107_000a', 'r0108_000a', 'r0109_000a', 'r0115_000a',
                     'r0116_000a', 'r0117_000a', 'r0118_000a', 'r0119_000a','r0121_000a', 'r0122_000a',
                     'r0123_000a', 'r0124_000a','r0125_000a', 'r0126_000a']
 
-Tree_name_inside = 'DA' #The name of the tree inside the root file
+Tree_name_inside = 'AD' #The name of the tree inside the root file
 
 """Create the file_data tree-root to python arrays"""
 file_data = Cfun.Branches_to_Arrays(Path_to_calibrated_trees, samples_names, Tree_name_inside, Tree_branches, preselection)
