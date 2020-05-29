@@ -24,13 +24,13 @@ print('We are working on: ' + basepath)
 
 my_parser = argparse.ArgumentParser(description='Gathers parameters to select a module package')
 
-my_parser.add_argument('module', help='Name of the module package: Testing, DCs_Calibration, DCs_X_Y_Theta_Phi_FP, Phi_Acceptance, dE_vs_E', type=str)
+my_parser.add_argument('module', help='Name of the module package: Testing, DCs_Calibration, DCs_X_Y_Theta_Phi_FP, ICs_Calibration', type=str)
 
 args = my_parser.parse_args()
 
 module_name = args.module
 
-if (module_name != 'Testing') and (module_name != 'DCs_Calibration') and (module_name != 'DCs_X_Y_Theta_Phi_FP') and (module_name != 'Phi_Acceptance') and (module_name != 'dE_vs_E'):
+if (module_name != 'Testing') and (module_name != 'DCs_Calibration') and (module_name != 'DCs_X_Y_Theta_Phi_FP') and (module_name != 'ICs_Calibration'):
     print('The module does not exist')
     sys.exit()
 else:
@@ -61,11 +61,8 @@ if module_name == 'DCs_Calibration':
 if module_name == 'DCs_X_Y_Theta_Phi_FP':
     exec(open('Modules/DCs_X_Y_Theta_Phi_FP/DCs_X_Y_Theta_Phi_FP.py').read())
 
-if module_name == 'Phi_Acceptance':
-    exec(open('Modules/Phi_Acceptance/Phi_Acceptance.py').read())
-
-if module_name == 'dE_vs_E':
-    exec(open('Modules/dE_vs_E/dE_vs_E.py').read())
+if module_name == 'ICs_Calibration':
+    exec(open('Modules/ICs_Calibration/ICs_Calibration.py').read())
 
 
 print('\n')
