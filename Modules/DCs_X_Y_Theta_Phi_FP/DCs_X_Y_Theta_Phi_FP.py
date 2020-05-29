@@ -54,10 +54,6 @@ Pf_14 = data_14_degrees['Pf']; Tf_14 = data_14_degrees['Tf'] #mrad
 Pf_21 = data_21_degrees['Pf']; Tf_21 = data_21_degrees['Tf'] #mrad
 Pf_14_21 = data_14_21_degrees['Pf']; Tf_14_21 = data_14_21_degrees['Tf'] #mrad
 
-PhiL_14 = data_14_degrees['PhiL']; ThetaL_14 = data_14_degrees['ThetaL']
-PhiL_21 = data_21_degrees['PhiL']; ThetaL_21 = data_21_degrees['ThetaL']
-PhiL_14_21 = data_14_21_degrees['PhiL']; ThetaL_14_21 = data_14_21_degrees['ThetaL']
-
 ###################################### conditions #########################################
 ############################# original conditions: Z>0, Zi>0, M>0 #########################
 condition_14 = (data_14_degrees['Xf'][:] > -1500) & (data_14_degrees['Yf'][:] > -1500) #it is a boolean index to apply in a dataset
