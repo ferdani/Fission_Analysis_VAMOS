@@ -28,14 +28,13 @@ sys.path.append(Module_path)
 ---------------------------------------------------- Import packages and Framework functions ----------------------------------------------------------------------------------------------------
 '''
 import numpy as np
-import root_numpy as rn
 import Framework.read_and_save.read_and_save as RAS
 from Plotter.Plotter import Plotter
 
 '''
 ---------------------------------------------- Open and read .hdf5 original file like a hdf5 object ----------------------------------------------------------------------------------
 '''
-hdf5_folder_path = basepath + 'Data_hdf5/DCs_X_Y_Theta_Phi_FP/' #The folder with files after the calibrations comming from RootA transformed in hdf5
+hdf5_folder_path = basepath + 'Data_hdf5/DCs_X_Y_Theta_Phi_FP_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5
 file_14_degrees = 'Analysis_14_file_DC_variables' #Without .hdf5 extension
 file_21_degrees = 'Analysis_21_file_DC_variables' #Without .hdf5 extension
 file_14_21_degrees = 'Analysis_14+21_file_DC_variables' #Without .hdf5 extension
