@@ -27,6 +27,5 @@ sys.path.append(Module_path)
 ---------------------------------------------------- Import packages and Framework functions ----------------------------------------------------------------------------------------------------
 '''
 import numpy as np
-import root_numpy as rn
 import Framework.read_and_save.read_and_save as RAS
 from Plotter.Plotter import Plotter
