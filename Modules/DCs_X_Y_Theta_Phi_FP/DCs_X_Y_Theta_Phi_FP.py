@@ -77,7 +77,7 @@ Yf_vs_Xf_14.SetLabelY('Yf [mm]', 15)
 Yf_vs_Xf_14.SetSizeTicksX(10)
 Yf_vs_Xf_14.Histo_2D() #Draw it
 ######### Save and show the created figure
-Yf_vs_Xf_14.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Yf_vs_Xf_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Yf_vs_Xf_14.SaveFig('Yf_vs_Xf_14')
 Yf_vs_Xf_14.Show(1) #show during 1 seconds, the close authomatically
 Yf_vs_Xf_14.Close() #close all windows, axes and figures running backend
@@ -94,7 +94,7 @@ Pf_vs_Tf_14_mrad.SetLabelY('Pf [mrad]', 15)
 Pf_vs_Tf_14_mrad.SetSizeTicksX(10)
 Pf_vs_Tf_14_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_14_mrad.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_14_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_14_mrad.SaveFig('Pf_vs_Tf_14_mrad')
 Pf_vs_Tf_14_mrad.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_14_mrad.Close() #close all windows, axes and figures running backend
@@ -110,7 +110,7 @@ Pf_vs_Tf_14_deg.SetLabelY('Pf [degree]', 15)
 Pf_vs_Tf_14_deg.SetSizeTicksX(10)
 Pf_vs_Tf_14_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_14_deg.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_14_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_14_deg.SaveFig('Pf_vs_Tf_14_degrees')
 Pf_vs_Tf_14_deg.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_14_deg.Close() #close all windows, axes and figures running backend
@@ -128,7 +128,7 @@ Yf_vs_Xf_21.SetLabelY('Yf [mm]', 15)
 Yf_vs_Xf_21.SetSizeTicksX(10)
 Yf_vs_Xf_21.Histo_2D() #Draw it
 ######### Save and show the created figure
-Yf_vs_Xf_21.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Yf_vs_Xf_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Yf_vs_Xf_21.SaveFig('Yf_vs_Xf_21')
 Yf_vs_Xf_21.Show(1) #show during 1 seconds, the close authomatically
 Yf_vs_Xf_21.Close() #close all windows, axes and figures running backend
@@ -145,7 +145,7 @@ Pf_vs_Tf_21_mrad.SetLabelY('Pf [mrad]', 15)
 Pf_vs_Tf_21_mrad.SetSizeTicksX(10)
 Pf_vs_Tf_21_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_21_mrad.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_21_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_21_mrad.SaveFig('Pf_vs_Tf_21_mrad')
 Pf_vs_Tf_21_mrad.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_21_mrad.Close() #close all windows, axes and figures running backend
@@ -162,7 +162,7 @@ Pf_vs_Tf_21_deg.SetLabelY('Pf [degree]', 15)
 Pf_vs_Tf_21_deg.SetSizeTicksX(10)
 Pf_vs_Tf_21_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_21_deg.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_21_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_21_deg.SaveFig('Pf_vs_Tf_21_degree')
 Pf_vs_Tf_21_deg.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_21_deg.Close() #close all windows, axes and figures running backend
@@ -180,7 +180,7 @@ Yf_vs_Xf_14_21.SetLabelY('Yf [mm]', 15)
 Yf_vs_Xf_14_21.SetSizeTicksX(10)
 Yf_vs_Xf_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
-Yf_vs_Xf_14_21.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Yf_vs_Xf_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Yf_vs_Xf_14_21.SaveFig('Yf_vs_Xf_14_21')
 Yf_vs_Xf_14_21.Show(1) #show during 1 seconds, the close authomatically
 Yf_vs_Xf_14_21.Close() #close all windows, axes and figures running backend
@@ -197,7 +197,7 @@ Pf_vs_Tf_14_21_mrad.SetLabelY('Pf [mrad]', 15)
 Pf_vs_Tf_14_21_mrad.SetSizeTicksX(10)
 Pf_vs_Tf_14_21_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_14_21_mrad.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_14_21_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_14_21_mrad.SaveFig('Pf_vs_Tf_14_21_mrad')
 Pf_vs_Tf_14_21_mrad.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_14_21_mrad.Close() #close all windows, axes and figures running backend
@@ -214,7 +214,7 @@ Pf_vs_Tf_14_21_deg.SetLabelY('Pf [degree]', 15)
 Pf_vs_Tf_14_21_deg.SetSizeTicksX(10)
 Pf_vs_Tf_14_21_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
-Pf_vs_Tf_14_21_deg.SetOutDir(basepath + 'Modules/DCs_X_Y_Theta_Phi_FP/Outputfiles/Figures/')
+Pf_vs_Tf_14_21_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Pf_vs_Tf_14_21_deg.SaveFig('Pf_vs_Tf_14_21_degree')
 Pf_vs_Tf_14_21_deg.Show(1) #show during 1 seconds, the close authomatically
 Pf_vs_Tf_14_21_deg.Close() #close all windows, axes and figures running backend
