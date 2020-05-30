@@ -18,7 +18,7 @@ sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
-Module_path = basepath + '/Modules/' + Testing + '/'
+Module_path = basepath + '/Modules/' + MODULE_name + '/'
 sys.path.append(Module_path)
 #print('We are working from here' + os.getcwd())
 
@@ -85,7 +85,7 @@ Histo1D_object.SetLabelX('Variable 1', 15)
 Histo1D_object.Histo_1D()
 
 ######### Save and show the created figure
-Histo1D_object.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Histo1D_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Histo1D_object.SaveFig('figure_TEST_Histo1D')
 Histo1D_object.Show(1) #show during 1 seconds, then close authomatically. Leave empty for normal plt.show()
 Histo1D_object.Close() #close all windows, axes and figures running backend
@@ -104,7 +104,7 @@ Bar_diagram_object.SetLabelX('Variable 1', 15)
 Bar_diagram_object.Bar_diagram()
 
 ######### Save and show the created figure
-Bar_diagram_object.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Bar_diagram_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Bar_diagram_object.SaveFig('figure_TEST_Bar_diagram')
 Bar_diagram_object.Show(1) #show during 1 seconds, the close authomatically
 Bar_diagram_object.Close() #close all windows, axes and figures running backend
@@ -124,7 +124,7 @@ Bar_d2D_object.SetLabelY('Variable 2', 15)
 Bar_d2D_object.Bar_diagram_2D()
 
 ######### Save and show the created figure
-Bar_d2D_object.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Bar_d2D_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Bar_d2D_object.SaveFig('figure_TEST_Bar_diagram_2D')
 Bar_d2D_object.Show(1) #show during 3 seconds, the close authomatically
 Bar_d2D_object.Close() #close all windows, axes and figures running backend
@@ -149,7 +149,7 @@ weights = np.ones(len(Testing_data_hdf5['Brho'][()])) #one weight equal one per 
 Histo2D_object.Histo_2D(weights)
 
 ######### Save and show the created figure
-Histo2D_object.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Histo2D_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Histo2D_object.SaveFig('figure_TEST_Histo2D')
 Histo2D_object.Show(1) #show during 1 seconds, the close authomatically
 Histo2D_object.Close() #close all windows, axes and figures running backend
@@ -171,7 +171,7 @@ Histo2D_mountain_object.SetLabelY('Variable 2', 15)
 Histo2D_mountain_object.Histo_2D_mountain()
 
 ######### Save and show the created figure
-Histo2D_mountain_object.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Histo2D_mountain_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Histo2D_mountain_object.SaveFig('figure_TEST_Histo2D_mountain')
 Histo2D_mountain_object.Show(1) #show during 1 seconds, the close authomatically
 Histo2D_mountain_object.Close() #close all windows, axes and figures running backend
@@ -193,7 +193,7 @@ Scatter_XY_histograms.SetLabelY('Variable 2', 15)
 Scatter_XY_histograms.ScatterXYpoints_histograms_X_Y()
 
 ######### Save and show the created figure
-Scatter_XY_histograms.SetOutDir(basepath + 'Modules/Testing/Outputfiles/Figures/')
+Scatter_XY_histograms.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Scatter_XY_histograms.SaveFig('figure_TEST_ScatterXYpoints_histograms_X_Y')
 Scatter_XY_histograms.Show(1) #show during 1 seconds, the close authomatically
 Scatter_XY_histograms.Close() #close all windows, axes and figures running backend
@@ -208,7 +208,7 @@ del Scatter_XY_histograms #erase HScatter_XY_histograms (is an object)
    ############# hdf5 type #############
    #####################################"""
 
-#saved_hdf5_folder_path = basepath + 'Modules/Testing/Outputfiles/'
+#saved_hdf5_folder_path = basepath + 'Modules/' + MODULE_name + '/Outputfiles/'
 #saved_hdf5_file_name = ['Analysis_SAVED_file']
 
 ############################################# Save only some variables
@@ -228,7 +228,7 @@ del Scatter_XY_histograms #erase HScatter_XY_histograms (is an object)
    ############# root type #############
    #####################################"""
 
-#saved_Root_folder_path = basepath + 'Modules/Testing/Outputfiles/'
+#saved_Root_folder_path = basepath + 'Modules/' + MODULE_name + '/Outputfiles/'
 #saved_Root_file_name = 'Analysis_SAVED_file.root'
 #saved_Root_tree_name = 'DA'
 
