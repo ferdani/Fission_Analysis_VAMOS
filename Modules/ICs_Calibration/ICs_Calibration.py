@@ -12,6 +12,8 @@ The code generates:
 -- Outputfiles/Figures/
 
 """
+MODULE_name = 'ICs_Calibration'
+
 '''
 ----------------------------------------------------------------- Protected part ----------------------------------------------------------------------------------------------------------------
 '''
@@ -20,7 +22,7 @@ sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
-Module_path = basepath + '/Modules/ICs_Calibration/'
+Module_path = basepath + '/Modules/' + MODULE_name + '/'
 sys.path.append(Module_path)
 
 '''

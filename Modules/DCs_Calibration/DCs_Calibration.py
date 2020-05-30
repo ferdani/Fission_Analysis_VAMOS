@@ -20,15 +20,17 @@ The code generates:
 -- Outputfiles/Figures/Final_Results/       The final plots to check if the channels in each DC are correct
 
 """
+MODULE_name = 'DCs_Calibration'
+
 '''
------------------------------------------------------------------ Protected part ----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------- Protected part (Don't touch nothing) ----------------------------------------------------------------------------------------------------------------
 '''
 import os, sys
 sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
-Module_path = basepath + '/Modules/DCs_Calibration/'
+Module_path = basepath + '/Modules/' + MODULE_name + '/'
 sys.path.append(Module_path)
 
 '''
@@ -43,7 +45,7 @@ from ROOT import TCanvas, TFile, TLegend, TH2F, TF1, gStyle
 '''
 --------------------------------------------------------- Open and read .root original file -----------------------------------------------------------------------------------------------------
 '''
-root_folder_path = basepath + 'Data_hdf5/DCs_Calibration_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5.
+root_folder_path = basepath + 'Data_hdf5/' + MODULE_name + '_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5.
 f = TFile.Open(root_folder_path + 'r0061_000a.root') #The .root file with pulser calibration data. Is "a" because in the experiment the raw data was calibrated.
                                                      #We will use it to generate a new .cal file for each DC to correct and test the initial calibration over .root file.
 

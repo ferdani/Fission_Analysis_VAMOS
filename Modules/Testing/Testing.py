@@ -8,15 +8,17 @@ dani.fernandez@usc.es
 
 TESTING MODULE -- A generic Module to test new things and is a template for the others
 """
+MODULE_name = 'Testing'
+
 '''
------------------------------------------------------------------ Protected part ----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------- Protected part (Don't touch nothing) ----------------------------------------------------------------------------------------------------------------
 '''
 import os, sys
 sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
-Module_path = basepath + '/Modules/Testing/'
+Module_path = basepath + '/Modules/' + Testing + '/'
 sys.path.append(Module_path)
 #print('We are working from here' + os.getcwd())
 

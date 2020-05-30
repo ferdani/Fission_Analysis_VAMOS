@@ -12,15 +12,17 @@ The code generates:
 -- Outputfiles/Figures/     All the plots resulting from this module are saved here
 
 """
+MODULE_name = 'DCs_X_Y_Theta_Phi_FP'
+
 '''
------------------------------------------------------------------ Protected part ----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------- Protected part (Don't touch nothing) ----------------------------------------------------------------------------------------------------------------
 '''
 import os, sys
 sys.path.append('.')
 sys.path.append('..')
 basepath = os.path.abspath(__file__).rsplit('/Fission_Analysis_VAMOS/',1)[0]+'/Fission_Analysis_VAMOS/'
 sys.path.append(basepath)
-Module_path = basepath + '/Modules/DCs_X_Y_Theta_Phi_FP/'
+Module_path = basepath + '/Modules/' + MODULE_name + '/'
 sys.path.append(Module_path)
 #print('We are working from here' + os.getcwd())
 
@@ -34,7 +36,7 @@ from Plotter.Plotter import Plotter
 '''
 ---------------------------------------------- Open and read .hdf5 original file like a hdf5 object ----------------------------------------------------------------------------------
 '''
-hdf5_folder_path = basepath + 'Data_hdf5/DCs_X_Y_Theta_Phi_FP_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5
+hdf5_folder_path = basepath + 'Data_hdf5/' + MODULE_name + '_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5
 file_14_degrees = 'Analysis_14_file_DC_variables' #Without .hdf5 extension
 file_21_degrees = 'Analysis_21_file_DC_variables' #Without .hdf5 extension
 file_14_21_degrees = 'Analysis_14+21_file_DC_variables' #Without .hdf5 extension
