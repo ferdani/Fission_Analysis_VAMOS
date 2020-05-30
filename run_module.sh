@@ -25,7 +25,7 @@ The control area to run an independent module:
 #python -i Modules/Module_selector.py 'DCs_X_Y_Theta_Phi_FP'
 
 #----------------------- 3 - Module - Charge_states --------------------------------------------------
-python -i Modules/Module_selector.py 'Charge_states'
+python Modules/Module_selector.py 'Charge_states'
 
 #----------------------- 4 - Module - ICs_Calibration --------------------------------------------------
 #python -i Modules/Module_selector.py 'ICs_Calibration'
