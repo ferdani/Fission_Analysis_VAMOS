@@ -170,6 +170,10 @@ class Plotter(object):
         '''set ticks's size in Z axis'''
         self.SizeTicksZ = sizez
 
+    def SetBoxText(self, text):
+        '''set text in a rectangule inside the plot'''
+        self.BoxText = text
+
 
 ################################## 'Get' methods
 
@@ -289,6 +293,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -343,6 +348,8 @@ class Plotter(object):
 
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
+
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -439,6 +446,8 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+
         return fig
 
 
@@ -532,6 +541,8 @@ class Plotter(object):
 
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
+
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -630,6 +641,8 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+
         return fig
 
 
@@ -711,5 +724,7 @@ class Plotter(object):
             axHisty.hist(self.Y_Variable, bins=self.bin_y, orientation='horizontal', facecolor='g', edgecolor='k', linewidth=0.3, histtype='bar')
         else:
             axHisty.hist(self.Y_Variable, orientation='horizontal', facecolor='g', edgecolor='k', linewidth=0.3, histtype='bar')
+
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig

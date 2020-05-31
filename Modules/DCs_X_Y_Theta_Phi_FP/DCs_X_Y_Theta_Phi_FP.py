@@ -68,13 +68,14 @@ condition_14_21 = (data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degrees['Y
 
 ################################################################## 14 degrees
 Yf_vs_Xf_14 = Plotter([data_14_degrees['Xf'][condition_14], data_14_degrees['Yf'][condition_14]]) #Create the base with the variables in a object
-Yf_vs_Xf_14.SetFigSize(10,7)
+Yf_vs_Xf_14.SetFigSize(12,7)
 Yf_vs_Xf_14.SetBinX(500)
 Yf_vs_Xf_14.SetBinY(500)
-Yf_vs_Xf_14.SetFigTitle('Yf:Xf 14 degrees', 15)
-Yf_vs_Xf_14.SetLabelX('Xf [mm]', 15)
-Yf_vs_Xf_14.SetLabelY('Yf [mm]', 15)
+Yf_vs_Xf_14.SetFigTitle(r'Yf:Xf 14$\degree$', 20)
+Yf_vs_Xf_14.SetLabelX('Xf [mm]', 20)
+Yf_vs_Xf_14.SetLabelY('Yf [mm]', 20)
 Yf_vs_Xf_14.SetSizeTicksX(10)
+Yf_vs_Xf_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Yf_vs_Xf_14.Histo_2D() #Draw it
 ######### Save and show the created figure
 Yf_vs_Xf_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -85,13 +86,14 @@ del Yf_vs_Xf_14 #erase Yf_vs_Xf_14 (is an object)
 
 
 Pf_vs_Tf_14_mrad = Plotter([data_14_degrees['Tf'][condition_14], data_14_degrees['Pf'][condition_14]]) #Create the base with the variables in a object
-Pf_vs_Tf_14_mrad.SetFigSize(10,7)
+Pf_vs_Tf_14_mrad.SetFigSize(12,7)
 Pf_vs_Tf_14_mrad.SetBinX(500)
 Pf_vs_Tf_14_mrad.SetBinY(500)
-Pf_vs_Tf_14_mrad.SetFigTitle('Pf:Tf 14 degrees', 15)
-Pf_vs_Tf_14_mrad.SetLabelX('Tf [mrad]', 15)
-Pf_vs_Tf_14_mrad.SetLabelY('Pf [mrad]', 15)
+Pf_vs_Tf_14_mrad.SetFigTitle(r'Pf:Tf 14$\degree$', 20)
+Pf_vs_Tf_14_mrad.SetLabelX('Tf [mrad]', 20)
+Pf_vs_Tf_14_mrad.SetLabelY('Pf [mrad]', 20)
 Pf_vs_Tf_14_mrad.SetSizeTicksX(10)
+Pf_vs_Tf_14_mrad.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_14_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_14_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -101,13 +103,14 @@ Pf_vs_Tf_14_mrad.Close() #close all windows, axes and figures running backend
 del Pf_vs_Tf_14_mrad #erase Pf_vs_Tf_14_mrad (is an object)
 
 Pf_vs_Tf_14_deg = Plotter([data_14_degrees['Tf'][condition_14]*180./(1000.*np.pi), data_14_degrees['Pf'][condition_14]*180./(1000.*np.pi)]) #Create the base with the variables in a object
-Pf_vs_Tf_14_deg.SetFigSize(10,7)
+Pf_vs_Tf_14_deg.SetFigSize(12,7)
 Pf_vs_Tf_14_deg.SetBinX(500)
 Pf_vs_Tf_14_deg.SetBinY(500)
-Pf_vs_Tf_14_deg.SetFigTitle('Pf:Tf 14 degrees', 15)
-Pf_vs_Tf_14_deg.SetLabelX('Tf [degree]', 15)
-Pf_vs_Tf_14_deg.SetLabelY('Pf [degree]', 15)
+Pf_vs_Tf_14_deg.SetFigTitle(r'Pf:Tf 14$\degree$', 20)
+Pf_vs_Tf_14_deg.SetLabelX(r'Tf [$\degree$]', 20)
+Pf_vs_Tf_14_deg.SetLabelY(r'Pf [$\degree$]', 20)
 Pf_vs_Tf_14_deg.SetSizeTicksX(10)
+Pf_vs_Tf_14_deg.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_14_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_14_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -119,13 +122,14 @@ del Pf_vs_Tf_14_deg #erase Pf_vs_Tf_14_deg (is an object)
 
 ################################################################# 21 degrees
 Yf_vs_Xf_21 = Plotter([data_21_degrees['Xf'][condition_21], data_21_degrees['Yf'][condition_21]]) #Create the base with the variables in a Histo2D_object
-Yf_vs_Xf_21.SetFigSize(10,7)
+Yf_vs_Xf_21.SetFigSize(12,7)
 Yf_vs_Xf_21.SetBinX(500)
 Yf_vs_Xf_21.SetBinY(500)
-Yf_vs_Xf_21.SetFigTitle('Yf:Xf 21 degrees', 15)
-Yf_vs_Xf_21.SetLabelX('Xf [mm]', 15)
-Yf_vs_Xf_21.SetLabelY('Yf [mm]', 15)
+Yf_vs_Xf_21.SetFigTitle(r'Yf:Xf 21$\degree$', 20)
+Yf_vs_Xf_21.SetLabelX('Xf [mm]', 20)
+Yf_vs_Xf_21.SetLabelY('Yf [mm]', 20)
 Yf_vs_Xf_21.SetSizeTicksX(10)
+Yf_vs_Xf_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Yf_vs_Xf_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 Yf_vs_Xf_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -136,13 +140,14 @@ del Yf_vs_Xf_21 #erase Yf_vs_Xf_21 (is an object)
 
 
 Pf_vs_Tf_21_mrad = Plotter([data_21_degrees['Tf'][condition_21], data_21_degrees['Pf'][condition_21]]) #Create the base with the variables in a object
-Pf_vs_Tf_21_mrad.SetFigSize(10,7)
+Pf_vs_Tf_21_mrad.SetFigSize(12,7)
 Pf_vs_Tf_21_mrad.SetBinX(500)
 Pf_vs_Tf_21_mrad.SetBinY(500)
-Pf_vs_Tf_21_mrad.SetFigTitle('Pf:Tf 21 degrees', 15)
-Pf_vs_Tf_21_mrad.SetLabelX('Tf [mrad]', 15)
-Pf_vs_Tf_21_mrad.SetLabelY('Pf [mrad]', 15)
+Pf_vs_Tf_21_mrad.SetFigTitle(r'Pf:Tf 21$\degree$', 20)
+Pf_vs_Tf_21_mrad.SetLabelX('Tf [mrad]', 20)
+Pf_vs_Tf_21_mrad.SetLabelY('Pf [mrad]', 20)
 Pf_vs_Tf_21_mrad.SetSizeTicksX(10)
+Pf_vs_Tf_21_mrad.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_21_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_21_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -153,13 +158,14 @@ del Pf_vs_Tf_21_mrad #erase Pf_vs_Tf_21_mrad (is an object)
 
 
 Pf_vs_Tf_21_deg = Plotter([data_21_degrees['Tf'][condition_21]*180./(1000.*np.pi), data_21_degrees['Pf'][condition_21]*180./(1000.*np.pi)]) #Create the base with the variables in a object
-Pf_vs_Tf_21_deg.SetFigSize(10,7)
+Pf_vs_Tf_21_deg.SetFigSize(12,7)
 Pf_vs_Tf_21_deg.SetBinX(500)
 Pf_vs_Tf_21_deg.SetBinY(500)
-Pf_vs_Tf_21_deg.SetFigTitle('Pf:Tf 21 degrees', 15)
-Pf_vs_Tf_21_deg.SetLabelX('Tf [degree]', 15)
-Pf_vs_Tf_21_deg.SetLabelY('Pf [degree]', 15)
+Pf_vs_Tf_21_deg.SetFigTitle(r'Pf:Tf 21$\degree$', 20)
+Pf_vs_Tf_21_deg.SetLabelX(r'Tf [$\degree$]', 20)
+Pf_vs_Tf_21_deg.SetLabelY(r'Pf [$\degree$]', 20)
 Pf_vs_Tf_21_deg.SetSizeTicksX(10)
+Pf_vs_Tf_21_deg.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_21_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_21_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -171,13 +177,14 @@ del Pf_vs_Tf_21_deg #erase Pf_vs_Tf_21_deg (is an object)
 
 ################################################################ 14 + 21 degrees
 Yf_vs_Xf_14_21 = Plotter([data_14_21_degrees['Xf'][condition_14_21], data_14_21_degrees['Yf'][condition_14_21]]) #Create the base with the variables in a Histo2D_object
-Yf_vs_Xf_14_21.SetFigSize(10,7)
+Yf_vs_Xf_14_21.SetFigSize(12,7)
 Yf_vs_Xf_14_21.SetBinX(500)
 Yf_vs_Xf_14_21.SetBinY(500)
-Yf_vs_Xf_14_21.SetFigTitle('Yf:Xf 14+21 degrees', 15)
-Yf_vs_Xf_14_21.SetLabelX('Xf [mm]', 15)
-Yf_vs_Xf_14_21.SetLabelY('Yf [mm]', 15)
+Yf_vs_Xf_14_21.SetFigTitle(r'Yf:Xf 14$\degree$+21$\degree$', 20)
+Yf_vs_Xf_14_21.SetLabelX('Xf [mm]', 20)
+Yf_vs_Xf_14_21.SetLabelY('Yf [mm]', 20)
 Yf_vs_Xf_14_21.SetSizeTicksX(10)
+Yf_vs_Xf_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Yf_vs_Xf_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 Yf_vs_Xf_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -188,13 +195,14 @@ del Yf_vs_Xf_14_21 #erase Yf_vs_Xf_14_21 (is an object)
 
 
 Pf_vs_Tf_14_21_mrad = Plotter([data_14_21_degrees['Tf'][condition_14_21], data_14_21_degrees['Pf'][condition_14_21]]) #Create the base with the variables in a Histo2D_object
-Pf_vs_Tf_14_21_mrad.SetFigSize(10,7)
+Pf_vs_Tf_14_21_mrad.SetFigSize(12,7)
 Pf_vs_Tf_14_21_mrad.SetBinX(500)
 Pf_vs_Tf_14_21_mrad.SetBinY(500)
-Pf_vs_Tf_14_21_mrad.SetFigTitle('Pf:Tf 14+21 degrees', 15)
-Pf_vs_Tf_14_21_mrad.SetLabelX('Tf [mrad]', 15)
-Pf_vs_Tf_14_21_mrad.SetLabelY('Pf [mrad]', 15)
+Pf_vs_Tf_14_21_mrad.SetFigTitle(r'Pf:Tf 14$\degree$+21$\degree$', 20)
+Pf_vs_Tf_14_21_mrad.SetLabelX('Tf [mrad]', 20)
+Pf_vs_Tf_14_21_mrad.SetLabelY('Pf [mrad]', 20)
 Pf_vs_Tf_14_21_mrad.SetSizeTicksX(10)
+Pf_vs_Tf_14_21_mrad.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_14_21_mrad.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_14_21_mrad.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
@@ -205,13 +213,14 @@ del Pf_vs_Tf_14_21_mrad #erase Pf_vs_Tf_14_21_mrad (is an object)
 
 
 Pf_vs_Tf_14_21_deg = Plotter([data_14_21_degrees['Tf'][condition_14_21]*180./(1000.*np.pi), data_14_21_degrees['Pf'][condition_14_21]*180./(1000.*np.pi)]) #Create the base with the variables in a Histo2D_object
-Pf_vs_Tf_14_21_deg.SetFigSize(10,7)
+Pf_vs_Tf_14_21_deg.SetFigSize(12,7)
 Pf_vs_Tf_14_21_deg.SetBinX(500)
 Pf_vs_Tf_14_21_deg.SetBinY(500)
-Pf_vs_Tf_14_21_deg.SetFigTitle('Pf:Tf 14+21 degrees', 15)
-Pf_vs_Tf_14_21_deg.SetLabelX('Tf [degree]', 15)
-Pf_vs_Tf_14_21_deg.SetLabelY('Pf [degree]', 15)
+Pf_vs_Tf_14_21_deg.SetFigTitle(r'Pf:Tf 14$\degree$+21$\degree$', 20)
+Pf_vs_Tf_14_21_deg.SetLabelX(r'Tf [$\degree$]', 20)
+Pf_vs_Tf_14_21_deg.SetLabelY(r'Pf [$\degree$]', 20)
 Pf_vs_Tf_14_21_deg.SetSizeTicksX(10)
+Pf_vs_Tf_14_21_deg.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n Xf>-1500 \n Yf>-1500')
 Pf_vs_Tf_14_21_deg.Histo_2D() #Draw it
 ######### Save and show the created figure
 Pf_vs_Tf_14_21_deg.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')

@@ -77,13 +77,14 @@ condition_14_21 = ((data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degrees['
 
 ################################################################## 14 degrees
 M_vs_M_Q_14 = Plotter([data_14_degrees['M_Q'][condition_14], data_14_degrees['M'][condition_14]]) #Create the base with the variables in a object
-M_vs_M_Q_14.SetFigSize(10,7)
+M_vs_M_Q_14.SetFigSize(12,7)
 M_vs_M_Q_14.SetBinX(500)
 M_vs_M_Q_14.SetBinY(500)
-M_vs_M_Q_14.SetFigTitle('M:M_Q 14 degrees', 20)
+M_vs_M_Q_14.SetFigTitle(r'M:M_Q 14$\degree$', 20)
 M_vs_M_Q_14.SetLabelX('M_Q', 20)
 M_vs_M_Q_14.SetLabelY('M', 20)
 M_vs_M_Q_14.SetSizeTicksX(10)
+M_vs_M_Q_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_14.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Raw_figures/')
@@ -95,13 +96,14 @@ del M_vs_M_Q_14 #erase M_vs_M_Q_14 (is an object)
 
 ################################################################## 21 degrees
 M_vs_M_Q_21 = Plotter([data_21_degrees['M_Q'][condition_21], data_21_degrees['M'][condition_21]]) #Create the base with the variables in a object
-M_vs_M_Q_21.SetFigSize(10,7)
+M_vs_M_Q_21.SetFigSize(12,7)
 M_vs_M_Q_21.SetBinX(500)
 M_vs_M_Q_21.SetBinY(500)
-M_vs_M_Q_21.SetFigTitle('M:M_Q 21 degrees', 20)
+M_vs_M_Q_21.SetFigTitle(r'M:M_Q 21$\degree$', 20)
 M_vs_M_Q_21.SetLabelX('M_Q', 20)
 M_vs_M_Q_21.SetLabelY('M', 20)
 M_vs_M_Q_21.SetSizeTicksX(10)
+M_vs_M_Q_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Raw_figures/')
@@ -113,13 +115,14 @@ del M_vs_M_Q_21 #erase M_vs_M_Q_21 (is an object)
 
 ################################################################## 14+21 degrees
 M_vs_M_Q_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_14_21], data_14_21_degrees['M'][condition_14_21]]) #Create the base with the variables in a object
-M_vs_M_Q_14_21.SetFigSize(10,7)
+M_vs_M_Q_14_21.SetFigSize(12,7)
 M_vs_M_Q_14_21.SetBinX(500)
 M_vs_M_Q_14_21.SetBinY(500)
-M_vs_M_Q_14_21.SetFigTitle('M:M_Q 14+21 degrees', 20)
+M_vs_M_Q_14_21.SetFigTitle(r'M:M_Q 14$\degree$+21$\degree$', 20)
 M_vs_M_Q_14_21.SetLabelX('M_Q', 20)
 M_vs_M_Q_14_21.SetLabelY('M', 20)
 M_vs_M_Q_14_21.SetSizeTicksX(10)
+M_vs_M_Q_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n M>0 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Raw_figures/')
@@ -155,13 +158,14 @@ condition_mass_14_21 = ((data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degr
 
 ################################################################## 14 degrees
 M_vs_M_Q_14 = Plotter([data_14_degrees['M_Q'][condition_mass_14], data_14_degrees['M'][condition_mass_14]]) #Create the base with the variables in a object
-M_vs_M_Q_14.SetFigSize(10,7)
+M_vs_M_Q_14.SetFigSize(12,7)
 M_vs_M_Q_14.SetBinX(500)
 M_vs_M_Q_14.SetBinY(500)
-M_vs_M_Q_14.SetFigTitle('M:M_Q 14 degrees', 20)
+M_vs_M_Q_14.SetFigTitle(r'M:M_Q 14$\degree$', 20)
 M_vs_M_Q_14.SetLabelX('M_Q', 20)
 M_vs_M_Q_14.SetLabelY('M', 20)
 M_vs_M_Q_14.SetSizeTicksX(10)
+M_vs_M_Q_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_14.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Corrected_figures/')
@@ -173,13 +177,14 @@ del M_vs_M_Q_14 #erase M_vs_M_Q_14 (is an object)
 
 ################################################################## 21 degrees
 M_vs_M_Q_21 = Plotter([data_21_degrees['M_Q'][condition_mass_21], data_21_degrees['M'][condition_mass_21]]) #Create the base with the variables in a object
-M_vs_M_Q_21.SetFigSize(10,7)
+M_vs_M_Q_21.SetFigSize(12,7)
 M_vs_M_Q_21.SetBinX(500)
 M_vs_M_Q_21.SetBinY(500)
-M_vs_M_Q_21.SetFigTitle('M:M_Q 21 degrees', 20)
+M_vs_M_Q_21.SetFigTitle(r'M:M_Q 21$\degree$', 20)
 M_vs_M_Q_21.SetLabelX('M_Q', 20)
 M_vs_M_Q_21.SetLabelY('M', 20)
 M_vs_M_Q_21.SetSizeTicksX(10)
+M_vs_M_Q_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Corrected_figures/')
@@ -191,13 +196,14 @@ del M_vs_M_Q_21 #erase M_vs_M_Q_21 (is an object)
 
 ################################################################## 14+21 degrees
 M_vs_M_Q_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_mass_14_21], data_14_21_degrees['M'][condition_mass_14_21]]) #Create the base with the variables in a object
-M_vs_M_Q_14_21.SetFigSize(10,7)
+M_vs_M_Q_14_21.SetFigSize(12,7)
 M_vs_M_Q_14_21.SetBinX(500)
 M_vs_M_Q_14_21.SetBinY(500)
-M_vs_M_Q_14_21.SetFigTitle('M:M_Q 14+21 degrees', 20)
+M_vs_M_Q_14_21.SetFigTitle(r'M:M_Q 14$\degree$+21$\degree$', 20)
 M_vs_M_Q_14_21.SetLabelX('M_Q', 20)
 M_vs_M_Q_14_21.SetLabelY('M', 20)
 M_vs_M_Q_14_21.SetSizeTicksX(10)
+M_vs_M_Q_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 M_vs_M_Q_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 M_vs_M_Q_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Corrected_figures/')
@@ -216,13 +222,14 @@ Q_measured = (data_14_21_degrees['M'][condition_mass_14_21]/data_14_21_degrees['
 
 ################################################################## 14+21 degrees
 Q_vs_M_Q_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_mass_14_21], Q_measured]) #Create the base with the variables in a object
-Q_vs_M_Q_14_21.SetFigSize(10,7)
+Q_vs_M_Q_14_21.SetFigSize(12,7)
 Q_vs_M_Q_14_21.SetBinX(500)
 Q_vs_M_Q_14_21.SetBinY(500)
-Q_vs_M_Q_14_21.SetFigTitle('Q:M_Q 14+21 degrees', 20)
+Q_vs_M_Q_14_21.SetFigTitle(r'Q:M_Q 14$\degree$+21$\degree$', 20)
 Q_vs_M_Q_14_21.SetLabelX(r'M_Q $\equiv (A/Q)$', 20)
 Q_vs_M_Q_14_21.SetLabelY(r'Q_measured', 20)
 Q_vs_M_Q_14_21.SetSizeTicksX(10)
+Q_vs_M_Q_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 Q_vs_M_Q_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 Q_vs_M_Q_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
@@ -235,13 +242,14 @@ del Q_vs_M_Q_14_21 #erase Q_vs_M_Q_14_21 (is an object)
 #################################################### Now, we can use Q #####################################################
 ################################################################## 14+21 degrees
 Q_vs_M_Q_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_mass_14_21], data_14_21_degrees['Q'][condition_mass_14_21]]) #Create the base with the variables in a object
-Q_vs_M_Q_14_21.SetFigSize(10,7)
+Q_vs_M_Q_14_21.SetFigSize(12,7)
 Q_vs_M_Q_14_21.SetBinX(500)
 Q_vs_M_Q_14_21.SetBinY(500)
-Q_vs_M_Q_14_21.SetFigTitle('Q:M_Q 14+21 degrees', 20)
+Q_vs_M_Q_14_21.SetFigTitle(r'Q:M_Q 14$\degree$+21$\degree$', 20)
 Q_vs_M_Q_14_21.SetLabelX(r'M_Q $\equiv (A/Q)$', 20)
 Q_vs_M_Q_14_21.SetLabelY(r'Q $\equiv Q^m = \frac{A^m}{(A/Q)}$', 20)
 Q_vs_M_Q_14_21.SetSizeTicksX(10)
+Q_vs_M_Q_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
 Q_vs_M_Q_14_21.Histo_2D() #Draw it
 ######### Save and show the created figure
 Q_vs_M_Q_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
