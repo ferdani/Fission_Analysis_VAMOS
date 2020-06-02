@@ -250,22 +250,16 @@ class Plotter(object):
 
         ax = fig.add_subplot(111)
 
-        # Plot histogram
         if self.bin_x:
-            hist, bins = np.histogram(self.X_Variable, bins=self.bin_x, weights=w)
+            plt.hist(self.X_Variable, bins=self.bin_x, weights=w, histtype='step', align='mid', orientation='vertical', color='b')
         else:
-            hist, bins = np.histogram(self.X_Variable, weights=w)
-
-        width = 1.0 * (bins[1] - bins[0])
-        center = (bins[:-1] + bins[1:]) / 2
+            plt.hist(self.X_Variable, weights=w, histtype='step', align='mid', orientation='vertical')
 
         plt.grid(True, which="major", ls="-", axis='both')
 
         if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle)
 
         ax.autoscale(enable=True, axis='both', tight=False)
-
-        plt.bar(center, hist, align='center', width=width, linewidth=0.5, edgecolor='k', color='b')
 
         if self.xmin and self.xmax:
             ax.set_xlim(self.xmin,self.xmax)
@@ -293,7 +287,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.9, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
