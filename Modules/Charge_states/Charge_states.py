@@ -257,3 +257,140 @@ Q_vs_M_Q_14_21.SaveFig('Q_vs_M_Q_14_21')
 Q_vs_M_Q_14_21.Show(1) #show during 1 seconds, the close authomatically
 Q_vs_M_Q_14_21.Close() #close all windows, axes and figures running backend
 del Q_vs_M_Q_14_21 #erase Q_vs_M_Q_14_21 (is an object)
+
+
+############################################################### Q measured histograms #########################################
+################################################################## 14 degrees
+Q_measured_14 = Plotter([data_14_degrees['Q'][condition_mass_14]]) #Create the base with the variables in a object
+Q_measured_14.SetFigSize(12,7)
+Q_measured_14.SetBinX(400)
+Q_measured_14.SetFigTitle(r'$Q^{m}$ $\equiv$ Q = $\frac{A}{(A/Q)}$        14$\degree$', 20)
+Q_measured_14.SetLabelX('Q', 20)
+Q_measured_14.SetLabelY('counts', 20)
+Q_measured_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Q_measured_14.Histo_1D() #Draw it
+######### Save and show the created figure
+Q_measured_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Q_measured_14.SaveFig('Q_measured_14')
+Q_measured_14.Show(1) #show during 1 seconds, the close authomatically
+Q_measured_14.Close() #close all windows, axes and figures running backend
+del Q_measured_14 #erase Q_measured_14 (is an object)
+
+
+################################################################## 21 degrees
+Q_measured_21 = Plotter([data_21_degrees['Q'][condition_mass_21]]) #Create the base with the variables in a object
+Q_measured_21.SetFigSize(12,7)
+Q_measured_21.SetBinX(400)
+Q_measured_21.SetFigTitle(r'$Q^{m}$ $\equiv$ Q = $\frac{A}{(A/Q)}$        21$\degree$', 20)
+Q_measured_21.SetLabelX('Q', 20)
+Q_measured_21.SetLabelY('counts', 20)
+Q_measured_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Q_measured_21.Histo_1D() #Draw it
+######### Save and show the created figure
+Q_measured_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Q_measured_21.SaveFig('Q_measured_21')
+Q_measured_21.Show(1) #show during 1 seconds, the close authomatically
+Q_measured_21.Close() #close all windows, axes and figures running backend
+del Q_measured_21 #erase Q_measured_21 (is an object)
+
+
+################################################################## 14+21 degrees
+Q_measured_14_21 = Plotter([data_14_21_degrees['Q'][condition_mass_14_21]]) #Create the base with the variables in a object
+Q_measured_14_21.SetFigSize(12,7)
+Q_measured_14_21.SetBinX(400)
+Q_measured_14_21.SetFigTitle(r'$Q^{m}$ $\equiv$ Q = $\frac{A}{(A/Q)}$        14$\degree$+21$\degree$', 20)
+Q_measured_14_21.SetLabelX('Q', 20)
+Q_measured_14_21.SetLabelY('counts', 20)
+Q_measured_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Q_measured_14_21.Histo_1D() #Draw it
+######### Save and show the created figure
+Q_measured_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Q_measured_14_21.SaveFig('Q_measured_14_21')
+Q_measured_14_21.Show(1) #show during 1 seconds, the close authomatically
+Q_measured_14_21.Close() #close all windows, axes and figures running backend
+del Q_measured_14_21 #erase Q_measured_14_21 (is an object)
+
+
+
+########################################### Q int histograms #########################################
+
+###################################### Testing if Qi variable is Q integer ##############################################
+
+Q_integer_14 = data_14_degrees['M'][condition_mass_14]/data_14_degrees['M_Q'][condition_mass_14] + 0.5
+Q_integer_14 = Q_integer_14.astype(int)
+
+################################################################## 14 degrees
+Q_int_14 = Plotter([Q_integer_14]) #Create the base with the variables in a object
+Q_int_14.SetFigSize(12,7)
+Q_int_14.SetBinX(300)
+Q_int_14.SetFigTitle(r'Q integer $\equiv Qi = int\left(\frac{A}{(A/M)} + 0.5\right)$        14$\degree$', 20)
+Q_int_14.SetLabelX('Qi', 20)
+Q_int_14.SetLabelY('counts', 20)
+Q_int_14.SetSizeTicksX(10)
+Q_int_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Q_int_14.Histo_1D() #Draw it
+######### Save and show the created figure
+Q_int_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Q_int_14.SaveFig('Qi_variable_is_Q_integer_14')
+Q_int_14.Show(1) #show during 1 seconds, the close authomatically
+Q_int_14.Close() #close all windows, axes and figures running backend
+del Q_int_14 #erase Q_int_14 (is an object)
+
+#################################################### Now, we can use Qi #####################################################
+
+################################################################## 14 degrees
+Qi_14 = Plotter([data_14_degrees['Qi'][condition_mass_14]]) #Create the base with the variables in a object
+Qi_14.SetFigSize(12,7)
+Qi_14.SetBinX(300)
+Qi_14.SetFigTitle(r'$Qi = int\left(\frac{A}{(A/M)} + 0.5\right)$        14$\degree$', 20)
+Qi_14.SetLabelX('Qi', 20)
+Qi_14.SetLabelY('counts', 20)
+Qi_14.SetSizeTicksX(10)
+Qi_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Qi_14.Histo_1D() #Draw it
+######### Save and show the created figure
+Qi_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Qi_14.SaveFig('Qi_14')
+Qi_14.Show(1) #show during 1 seconds, the close authomatically
+Qi_14.Close() #close all windows, axes and figures running backend
+del Qi_14 #erase Qi_14 (is an object)
+
+
+################################################################## 21 degrees
+Qi_21 = Plotter([data_21_degrees['Qi'][condition_mass_21]]) #Create the base with the variables in a object
+Qi_21.SetFigSize(12,7)
+Qi_21.SetBinX(300)
+Qi_21.SetFigTitle(r'$Qi = int\left(\frac{A}{(A/M)} + 0.5\right)$        21$\degree$', 20)
+Qi_21.SetLabelX('Qi', 20)
+Qi_21.SetLabelY('counts', 20)
+Qi_21.SetSizeTicksX(10)
+Qi_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Qi_21.Histo_1D() #Draw it
+######### Save and show the created figure
+Qi_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Qi_21.SaveFig('Qi_21')
+Qi_21.Show(1) #show during 1 seconds, the close authomatically
+Qi_21.Close() #close all windows, axes and figures running backend
+del Qi_21 #erase Qi_21 (is an object)
+
+
+################################################################## 14 degrees
+Qi_14_21 = Plotter([data_14_21_degrees['Qi'][condition_mass_14_21]]) #Create the base with the variables in a object
+Qi_14_21.SetFigSize(12,7)
+Qi_14_21.SetBinX(300)
+Qi_14_21.SetFigTitle(r'$Qi = int\left(\frac{A}{(A/M)} + 0.5\right)$        14$\degree$+21$\degree$', 20)
+Qi_14_21.SetLabelX('Qi', 20)
+Qi_14_21.SetLabelY('counts', 20)
+Qi_14_21.SetSizeTicksX(10)
+Qi_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+Qi_14_21.Histo_1D() #Draw it
+######### Save and show the created figure
+Qi_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Q_Comprobation/')
+Qi_14_21.SaveFig('Qi_14_21')
+Qi_14_21.Show(1) #show during 1 seconds, the close authomatically
+Qi_14_21.Close() #close all windows, axes and figures running backend
+del Qi_14_21 #erase Qi_14_21 (is an object)
+
+
+
+########################################### M measured reconstruction histograms #########################################
