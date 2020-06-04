@@ -57,6 +57,7 @@ class Plotter(object):
         self.SizeLabelX = None; self.SizeLabelY = None; self.SizeLabelZ = None
         self.ScaleX = None; self.ScaleY = None;
         self.SizeTicksX = None; self.SizeTicksY = None; self.SizeTicksZ = None;
+        self.BoxText = None
 
         #Case 1:
         if len(args)==1 and type(args[0])==list and len(args[0])>0:
@@ -287,7 +288,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.9, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.9, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -343,7 +344,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -440,7 +441,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -536,7 +537,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -635,7 +636,7 @@ class Plotter(object):
         if self.SizeTicksX: ax.tick_params(axis='x', labelsize=self.SizeTicksX)
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
 
@@ -719,6 +720,6 @@ class Plotter(object):
         else:
             axHisty.hist(self.Y_Variable, orientation='horizontal', facecolor='g', edgecolor='k', linewidth=0.3, histtype='bar')
 
-        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
