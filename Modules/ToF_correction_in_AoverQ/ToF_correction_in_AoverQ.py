@@ -45,6 +45,24 @@ data_14_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_14_degrees) #Array-m
 data_21_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_21_degrees) #Array-matrix with our data
 data_14_21_degrees= RAS.Read_hdf5_file(hdf5_folder_path, file_14_21_degrees) #Array-matrix with our data
 
+#CONDITIONS FOR 14, 21 AND 14+21 (after seeing Charge_states module variables):
+condition_mass_14 = ((data_14_degrees['Xf'][:] > -1500) & (data_14_degrees['Yf'][:] > -1500)
+                & (data_14_degrees['Yf'][:] > -110) & (data_14_degrees['Yf'][:] < 50)
+                & (data_14_degrees['Pf'][:] > -100) & (data_14_degrees['Pf'][:] < 100)
+                & (data_14_degrees['M'][:] < 180) & (data_14_degrees['M'][:] > 70)
+                & (data_14_degrees['M_Q'][:] < 4) & (data_14_degrees['M_Q'][:] > 2.25))
+
+condition_mass_21 = ((data_21_degrees['Xf'][:] > -1500) & (data_21_degrees['Yf'][:] > -1500)
+                & (data_21_degrees['Yf'][:] > -110) & (data_21_degrees['Yf'][:] < 50)
+                & (data_21_degrees['Pf'][:] > -100) & (data_21_degrees['Pf'][:] < 100)
+                & (data_21_degrees['M'][:] < 180) & (data_21_degrees['M'][:] > 70)
+                & (data_21_degrees['M_Q'][:] < 4) & (data_21_degrees['M_Q'][:] > 2.25))
+
+condition_mass_14_21 = ((data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degrees['Yf'][:] > -1500)
+                & (data_14_21_degrees['Yf'][:] > -110) & (data_14_21_degrees['Yf'][:] < 50)
+                & (data_14_21_degrees['Pf'][:] > -100) & (data_14_21_degrees['Pf'][:] < 100)
+                & (data_14_21_degrees['M'][:] < 180) & (data_14_21_degrees['M'][:] > 70)
+                & (data_14_21_degrees['M_Q'][:] < 4) & (data_14_21_degrees['M_Q'][:] > 2.25))
 
 '''
 ------------------------------------------------------ Pattern A vs A/Q simulated -----------------------------------------------------------
@@ -104,3 +122,67 @@ print('Saving figure as:' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/
 print('\n')
 plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/' + 'A_vs_A_Q_pattern' + '.png', format='png')
 plt.show()
+
+
+'''
+---------------------------------------------------------- M_Q pre-corrections -------------------------------------------------------------
+'''
+
+################################################################## 14 degrees
+M_Q_14 = Plotter([data_14_degrees['M_Q'][condition_mass_14]]) #Create the base with the variables in a object
+M_Q_14.SetFigSize(12,7)
+M_Q_14.SetBinX(10000)
+M_Q_14.SetFigTitle(r'M_Q        14$\degree$', 20)
+M_Q_14.SetLabelX('M_Q [uma]', 20)
+M_Q_14.SetLabelY('counts', 20)
+M_Q_14.SetSizeTicksX(10)
+M_Q_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+M_Q_14.SetLimX((2.6,3.6))
+M_Q_14.Histo_1D() #Draw it
+
+######### Save and show the created figure
+M_Q_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
+M_Q_14.SaveFig('M_Q_14_histogram')
+M_Q_14.Show(1) #show during 1 seconds, the close authomatically
+M_Q_14.Close() #close all windows, axes and figures running backend
+del M_Q_14 #erase M_Q_14 (is an object)
+
+
+################################################################## 21 degrees
+M_Q_21 = Plotter([data_21_degrees['M_Q'][condition_mass_21]]) #Create the base with the variables in a object
+M_Q_21.SetFigSize(12,7)
+M_Q_21.SetBinX(10000)
+M_Q_21.SetFigTitle(r'M_Q        21$\degree$', 20)
+M_Q_21.SetLabelX('M_Q [uma]', 20)
+M_Q_21.SetLabelY('counts', 20)
+M_Q_21.SetSizeTicksX(10)
+M_Q_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+M_Q_21.SetLimX((2.6,3.6))
+M_Q_21.Histo_1D() #Draw it
+
+######### Save and show the created figure
+M_Q_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
+M_Q_21.SaveFig('M_Q_21_histogram')
+M_Q_21.Show(1) #show during 1 seconds, the close authomatically
+M_Q_21.Close() #close all windows, axes and figures running backend
+del M_Q_21 #erase M_Q_21 (is an object)
+
+
+################################################################## 14+21 degrees
+M_Q_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_mass_14_21]]) #Create the base with the variables in a object
+M_Q_14_21.SetFigSize(12,7)
+M_Q_14_21.SetBinX(10000)
+M_Q_14_21.SetFigTitle(r'M_Q        14$\degree$+21$\degree$', 20)
+M_Q_14_21.SetLabelX('M_Q [uma]', 20)
+M_Q_14_21.SetLabelY('counts', 20)
+M_Q_14_21.SetSizeTicksX(10)
+M_Q_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.25<M_Q<4 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500')
+M_Q_14_21.SetLimX((2.6,3.6))
+M_Q_14_21.Histo_1D() #Draw it
+
+######### Save and show the created figure
+M_Q_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
+M_Q_14_21.SaveFig('M_Q_14_21_histogram')
+M_Q_14_21.Show(1) #show during 1 seconds, the close authomatically
+M_Q_14_21.Close() #close all windows, axes and figures running backend
+del M_Q_14_21 #erase M_Q_14_21 (is an object)
