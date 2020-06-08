@@ -57,7 +57,7 @@ class Plotter(object):
         self.SizeLabelX = None; self.SizeLabelY = None; self.SizeLabelZ = None
         self.ScaleX = None; self.ScaleY = None;
         self.SizeTicksX = None; self.SizeTicksY = None; self.SizeTicksZ = None;
-        self.BoxText = None
+        self.BoxText = None; self.Grid = None;
 
         #Case 1:
         if len(args)==1 and type(args[0])==list and len(args[0])>0:
@@ -175,6 +175,10 @@ class Plotter(object):
         '''set text in a rectangule inside the plot'''
         self.BoxText = text
 
+    def SetGrid(self, grid):
+        '''set grid on X-axis as "x", in Y-axis as "y" or in both as "both" '''
+        self.Grid = grid
+
 
 ################################## 'Get' methods
 
@@ -256,7 +260,7 @@ class Plotter(object):
         else:
             plt.hist(self.X_Variable, weights=w, histtype='step', align='mid', orientation='vertical')
 
-        plt.grid(True, which="major", ls="-", axis='both')
+        if self.Grid: plt.grid(True, which="major", axis=self.Grid, ls="-")
 
         if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle)
 
@@ -317,7 +321,7 @@ class Plotter(object):
         # Plot the bar diagram (tags, frequency)
         plt.bar(self.X_Variable, self.Y_Variable, linewidth=0.5, edgecolor='k', color='b')
 
-        plt.grid(True, which="major", ls="-", axis='y')
+        if self.Grid: plt.grid(True, which="major", axis=self.Grid, ls="-")
 
         if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle)
 
@@ -413,7 +417,7 @@ class Plotter(object):
         cbar = plt.colorbar()
         cbar.ax.set_ylabel('Counts')
 
-        plt.grid(True, which="major", ls="-", axis='both')
+        if self.Grid: plt.grid(True, which="major", axis=self.Grid, ls="-")
 
         if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle)
 
@@ -509,7 +513,7 @@ class Plotter(object):
         cbar = plt.colorbar()
         cbar.ax.set_ylabel('Counts')
 
-        plt.grid(True, which="both", ls="-")
+        if self.Grid: plt.grid(True, which="major", axis=self.Grid, ls="-")
 
         if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle)
 
@@ -682,7 +686,7 @@ class Plotter(object):
         # the scatter plot:
         axScatter.scatter(self.X_Variable, self.Y_Variable, marker='o', c='g', edgecolor='k', linewidth=0.3)
         #Grid on scatter plot activated
-        axScatter.grid(True, which="major", ls="-", axis='both')
+        if self.Grid: axScatter.grid(True, which="major", axis=self.Grid, ls="-")
 
         if self.FigTitle: fig.suptitle(self.FigTitle, fontsize=self.SizeTitle)
 
@@ -720,6 +724,6 @@ class Plotter(object):
         else:
             axHisty.hist(self.Y_Variable, orientation='horizontal', facecolor='g', edgecolor='k', linewidth=0.3, histtype='bar')
 
-        if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+        if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
