@@ -273,8 +273,6 @@ del ax2
 
 
 
-
-
 ################################################### 21 degrees
 
 binning = 10000
@@ -350,7 +348,6 @@ del ax2
 
 
 
-
 ################################################### 14+21 degrees
 
 binning = 10000
@@ -423,7 +420,6 @@ plt.close()
 del fig
 del ax1
 del ax2
-
 
 
 
@@ -521,28 +517,19 @@ for i in range(int(min(data_14_21_degrees['MW_Nr'][:])), int(max(data_14_21_degr
 
 
 
-
 '''
----------------------------------------------------- M_Q in each MW_Nr gaussian fit --------------------------------------------------------
+---------------------------------------------------- M_Q in each MW_Nr gaussian fit and Off_ToF --------------------------------------------------------
 '''
 
 ##################################################### 14 degrees
+mu_14 = [] #value with error
 
-for i in range(int(min(data_14_degrees['MW_Nr'][:])), int(max(data_14_degrees['MW_Nr'][:]))+1):
-    MW_ch = i
+for MW_ch in range(int(min(data_14_degrees['MW_Nr'][:])), int(max(data_14_degrees['MW_Nr'][:]))+1):
+
     binning = 200
-    M_Q_with_ch_MWNr_fit_14 = Plotter([data_14_degrees['M_Q'][condition_MW_14 & (data_14_degrees['M_Q'][:]>2.8) & (data_14_degrees['M_Q'][:]<3.2) & (data_14_degrees['MW_Nr'][:]==MW_ch)]]) #Create the base with the variables in a object
-    M_Q_with_ch_MWNr_fit_14.SetFigSize(12,7)
-    M_Q_with_ch_MWNr_fit_14.SetBinX(binning)
-    M_Q_with_ch_MWNr_fit_14.SetFigTitle(r'M_Q with MW_Nr = %i        14$\degree$' %MW_ch, 20)
-    M_Q_with_ch_MWNr_fit_14.SetLabelX('M_Q', 20)
-    M_Q_with_ch_MWNr_fit_14.SetLabelY('counts', 20)
-    M_Q_with_ch_MWNr_fit_14.SetSizeTicksX(10)
-    M_Q_with_ch_MWNr_fit_14.SetLimX((2.8,3.2))
-    M_Q_with_ch_MWNr_fit_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
-    M_Q_with_ch_MWNr_fit_14.Histo_1D() #Draw it
+    key = False
 
-    ####### Fit a gaussian in the zoom
+    ####### Fit a gaussian
     def gaussian(x, a, mean, sigma):
         return a * np.exp(-((x - mean)**2 / (2 * sigma**2)))
 
@@ -553,20 +540,337 @@ for i in range(int(min(data_14_degrees['MW_Nr'][:])), int(max(data_14_degrees['M
     try:
         popt, pcov = curve_fit(gaussian, bins_edge, histo, bounds=((min(histo), 2.9, 0.001), (max(histo)+max(histo)*0.005, 3.1, 0.0081)))
         i = np.linspace(2.98, 3.02, 1000)
-        plt.plot(i, gaussian(i, *popt), 'r')
-        plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+        key = True
+        #plt.plot(i, gaussian(i, *popt), 'r')
+        #plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+        mu_14.append(np.array([popt[1],pcov[1][1]]))
     except:
-        None
+        mu_14.append(np.array([0,0]))
 
-    ######### Save and show the created figure
-    M_Q_with_ch_MWNr_fit_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/M_Q_per_MWNr_fit_gauss/14degrees/')
-    M_Q_with_ch_MWNr_fit_14.SaveFig('M_Q_with_ch_%i_MWNr_fit_14' %MW_ch)
-    M_Q_with_ch_MWNr_fit_14.Show(1) #show during 1 seconds, the close authomatically
-    M_Q_with_ch_MWNr_fit_14.Close() #close all windows, axes and figures running backend
-    del M_Q_with_ch_MWNr_fit_14 #erase M_Q_with_ch_MWNr_14 (is an object)
+
+    ############# choose plot case ##################
+    #Plot_tag = "fits one by one"
+    Plot_tag = "fitted same plot"
+
+    if Plot_tag == "fits one by one":
+        M_Q_with_ch_MWNr_fit_14 = Plotter([data_14_degrees['M_Q'][condition_MW_14 & (data_14_degrees['M_Q'][:]>2.8) & (data_14_degrees['M_Q'][:]<3.2) & (data_14_degrees['MW_Nr'][:]==MW_ch)]]) #Create the base with the variables in a object
+        M_Q_with_ch_MWNr_fit_14.SetFigSize(12,7)
+        M_Q_with_ch_MWNr_fit_14.SetBinX(binning)
+        M_Q_with_ch_MWNr_fit_14.SetFigTitle(r'M_Q with MW_Nr = %i        14\degree$' %MW_ch, 20)
+        M_Q_with_ch_MWNr_fit_14.SetLabelX('M_Q', 20)
+        M_Q_with_ch_MWNr_fit_14.SetLabelY('counts', 20)
+        M_Q_with_ch_MWNr_fit_14.SetSizeTicksX(10)
+        M_Q_with_ch_MWNr_fit_14.SetLimX((2.8,3.2))
+        M_Q_with_ch_MWNr_fit_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+        M_Q_with_ch_MWNr_fit_14.Histo_1D() #Draw it
+
+        if key: #to plot in the same pad as M_Q_with_ch_MWNr_fit_21
+            plt.plot(i, gaussian(i, *popt), 'r')
+            plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        ######### Save and show the created figure
+        M_Q_with_ch_MWNr_fit_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/M_Q_per_MWNr_fit_gauss/14degrees/')
+        M_Q_with_ch_MWNr_fit_14.SaveFig('M_Q_with_ch_%i_MWNr_fit_14' %MW_ch)
+        M_Q_with_ch_MWNr_fit_14.Show(1) #show during 1 seconds, the close authomatically
+        M_Q_with_ch_MWNr_fit_14.Close() #close all windows, axes and figures running backend
+        del M_Q_with_ch_MWNr_fit_14 #erase M_Q_with_ch_MWNr_14 (is an object)
+
+    elif Plot_tag == "fitted same plot":
+        if key:
+            plt.plot(i, gaussian(i, *popt), label='MW_pad N: %i' %MW_ch)
+            #plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        if MW_ch == int(max(data_14_degrees['MW_Nr'][:])): # if it is the last element in the loop, plot all.
+            mean_value = np.mean([i[0] for i in mu_14])
+            mean_value_error = np.mean([i[1] for i in mu_14])
+            plt.text(0.15, 0.55, r'$\mu$_mean_all = %.7f $\pm$ %.7f' %(mean_value,mean_value_error) , fontsize=10, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+            plt.legend()
+            print('\n')
+            print('Saving figure...')
+            figure = plt.gcf() # get current figure
+            figure.suptitle(r'Fitted gaussians per MW_Ch in 14$\degree$')
+            figure.set_size_inches(13, 8)
+            plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/mean_gaussian_values_14.png')
+            print('mean_gaussian_values_14.png figure was saved in: ' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/' )
+            print('\n')
+            plt.show(block=False) #show every gaussian fit plot in the same pad during 1 second
+            plt.pause(1)
+            plt.close()
+
+        else:
+            continue
+
     del histo
     del bins_edge
 
+mu_14 = np.asarray(mu_14)
+
+############# Off_ToF 14 degrees
+
+Off_ToF_14_MW_Nr_array = []
+
+for MW_ch in range(int(min(data_14_degrees['MW_Nr'][:])), int(max(data_14_degrees['MW_Nr'][:]))+1):
+    T = data_14_degrees['T'][condition_MW_14 & (data_14_degrees['MW_Nr'][:]==MW_ch)]
+    D = data_14_degrees['D'][condition_MW_14 & (data_14_degrees['MW_Nr'][:]==MW_ch)]
+    Brho = data_14_degrees['Brho'][condition_MW_14 & (data_14_degrees['MW_Nr'][:]==MW_ch)]
+    K = (3.105 * D)/(29.9792458 * Brho)
+    Delta2 = 3**2 - mu_14[MW_ch-1][0]**2
+
+    Off_ToF_14_MW_Nr = -T + np.sqrt(T**2 + (K**2)*Delta2)
+    Off_ToF_14_MW_Nr_array.append(Off_ToF_14_MW_Nr)
+
+    Off_Tof_histo = Plotter([Off_ToF_14_MW_Nr]) #Create the base with the variables in a object
+    Off_Tof_histo.SetFigSize(12,7)
+    Off_Tof_histo.SetBinX(100)
+    Off_Tof_histo.SetLimX((-0.25,0.25))
+    Off_Tof_histo.SetFigTitle(r'Off_ToF with MW_Nr = %i        14$\degree$' %MW_ch, 20)
+    Off_Tof_histo.SetLabelX('Off_ToF', 20)
+    Off_Tof_histo.SetLabelY('counts', 20)
+    Off_Tof_histo.SetSizeTicksX(10)
+    Off_Tof_histo.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+    Off_Tof_histo.Histo_1D() #Draw it
+    ######### Save and show the created figure
+    Off_Tof_histo.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/14degrees/')
+    Off_Tof_histo.SaveFig('Off_Tof_with_ch_%i_MWNr_14' %MW_ch)
+    Off_Tof_histo.Show(1) #show during 1 seconds, the close authomatically
+    Off_Tof_histo.Close() #close all windows, axes and figures running backend
+    del Off_Tof_histo #erase Off_Tof_histo (is an object)
+
+Off_ToF_14_MW_Nr_array = np.asarray(Off_ToF_14_MW_Nr_array)
+
+
+
+##################################################### 21 degrees
+mu_21 = [] #value with error
+
+for MW_ch in range(int(min(data_21_degrees['MW_Nr'][:])), int(max(data_21_degrees['MW_Nr'][:]))+1):
+
+    binning = 200
+    key = False
+
+    ####### Fit a gaussian
+    def gaussian(x, a, mean, sigma):
+        return a * np.exp(-((x - mean)**2 / (2 * sigma**2)))
+
+    #Evaluate the histogram
+    histo, bins_edge = np.histogram(data_21_degrees['M_Q'][condition_MW_21 & (data_21_degrees['M_Q'][:]>2.8) & (data_21_degrees['M_Q'][:]<3.2) & (data_21_degrees['MW_Nr'][:]==MW_ch)], bins=binning)
+    bins_edge = bins_edge[:-1]
+
+    try:
+        popt, pcov = curve_fit(gaussian, bins_edge, histo, bounds=((min(histo), 2.9, 0.001), (max(histo)+max(histo)*0.005, 3.1, 0.0081)))
+        i = np.linspace(2.98, 3.02, 1000)
+        key = True
+        mu_21.append(np.array([popt[1],pcov[1][1]]))
+    except:
+        mu_21.append(np.array([0,0]))
+
+
+    ############# choose plot case ##################
+    #Plot_tag = "fits one by one"
+    Plot_tag = "fitted same plot"
+
+    if Plot_tag == "fits one by one":
+        M_Q_with_ch_MWNr_fit_21 = Plotter([data_21_degrees['M_Q'][condition_MW_21 & (data_21_degrees['M_Q'][:]>2.8) & (data_21_degrees['M_Q'][:]<3.2) & (data_21_degrees['MW_Nr'][:]==MW_ch)]]) #Create the base with the variables in a object
+        M_Q_with_ch_MWNr_fit_21.SetFigSize(12,7)
+        M_Q_with_ch_MWNr_fit_21.SetBinX(binning)
+        M_Q_with_ch_MWNr_fit_21.SetFigTitle(r'M_Q with MW_Nr = %i        21\degree$' %MW_ch, 20)
+        M_Q_with_ch_MWNr_fit_21.SetLabelX('M_Q', 20)
+        M_Q_with_ch_MWNr_fit_21.SetLabelY('counts', 20)
+        M_Q_with_ch_MWNr_fit_21.SetSizeTicksX(10)
+        M_Q_with_ch_MWNr_fit_21.SetLimX((2.8,3.2))
+        M_Q_with_ch_MWNr_fit_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+        M_Q_with_ch_MWNr_fit_21.Histo_1D() #Draw it
+
+        if key: #to plot in the same pad as M_Q_with_ch_MWNr_fit_21
+            plt.plot(i, gaussian(i, *popt), 'r')
+            plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        ######### Save and show the created figure
+        M_Q_with_ch_MWNr_fit_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/M_Q_per_MWNr_fit_gauss/21degrees/')
+        M_Q_with_ch_MWNr_fit_21.SaveFig('M_Q_with_ch_%i_MWNr_fit_21' %MW_ch)
+        M_Q_with_ch_MWNr_fit_21.Show(1) #show during 1 seconds, the close authomatically
+        M_Q_with_ch_MWNr_fit_21.Close() #close all windows, axes and figures running backend
+        del M_Q_with_ch_MWNr_fit_21 #erase M_Q_with_ch_MWNr_21 (is an object)
+
+    elif Plot_tag == "fitted same plot":
+        if key:
+            plt.plot(i, gaussian(i, *popt), label='MW_pad N: %i' %MW_ch)
+            #plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        if MW_ch == int(max(data_21_degrees['MW_Nr'][:])): # if it is the last element in the loop, plot all.
+            mean_value = np.mean([i[0] for i in mu_21])
+            mean_value_error = np.mean([i[1] for i in mu_21])
+            plt.text(0.15, 0.55, r'$\mu$_mean_all = %.7f $\pm$ %.7f' %(mean_value,mean_value_error) , fontsize=10, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+            plt.legend()
+            print('\n')
+            print('Saving figure...')
+            figure = plt.gcf() # get current figure
+            figure.suptitle(r'Fitted gaussians per MW_Ch in 21$\degree$')
+            figure.set_size_inches(13, 8)
+            plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/mean_gaussian_values_21.png')
+            print('mean_gaussian_values_21.png figure was saved in: ' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/' )
+            print('\n')
+            plt.show(block=False) #show every gaussian fit plot in the same pad during 1 second
+            plt.pause(1)
+            plt.close()
+
+        else:
+            continue
+
+    del histo
+    del bins_edge
+
+mu_21 = np.asarray(mu_21)
+
+############# Off_ToF 21 degrees
+
+Off_ToF_21_MW_Nr_array = []
+
+for MW_ch in range(int(min(data_21_degrees['MW_Nr'][:])), int(max(data_21_degrees['MW_Nr'][:]))+1):
+    T = data_21_degrees['T'][condition_MW_21 & (data_21_degrees['MW_Nr'][:]==MW_ch)]
+    D = data_21_degrees['D'][condition_MW_21 & (data_21_degrees['MW_Nr'][:]==MW_ch)]
+    Brho = data_21_degrees['Brho'][condition_MW_21 & (data_21_degrees['MW_Nr'][:]==MW_ch)]
+    K = (3.105 * D)/(29.9792458 * Brho)
+    Delta2 = 3**2 - mu_21[MW_ch-1][0]**2
+
+    Off_ToF_21_MW_Nr = -T + np.sqrt(T**2 + (K**2)*Delta2)
+    Off_ToF_21_MW_Nr_array.append(Off_ToF_21_MW_Nr)
+
+    Off_Tof_histo = Plotter([Off_ToF_21_MW_Nr]) #Create the base with the variables in a object
+    Off_Tof_histo.SetFigSize(12,7)
+    Off_Tof_histo.SetBinX(100)
+    Off_Tof_histo.SetLimX((-0.25,0.25))
+    Off_Tof_histo.SetFigTitle(r'Off_ToF with MW_Nr = %i        21$\degree$' %MW_ch, 20)
+    Off_Tof_histo.SetLabelX('Off_ToF', 20)
+    Off_Tof_histo.SetLabelY('counts', 20)
+    Off_Tof_histo.SetSizeTicksX(10)
+    Off_Tof_histo.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+    Off_Tof_histo.Histo_1D() #Draw it
+    ######### Save and show the created figure
+    Off_Tof_histo.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/21degrees/')
+    Off_Tof_histo.SaveFig('Off_Tof_with_ch_%i_MWNr_21' %MW_ch)
+    Off_Tof_histo.Show(1) #show during 1 seconds, the close authomatically
+    Off_Tof_histo.Close() #close all windows, axes and figures running backend
+    del Off_Tof_histo #erase Off_Tof_histo (is an object)
+
+Off_ToF_21_MW_Nr_array = np.asarray(Off_ToF_21_MW_Nr_array)
+
+
+
+##################################################### 14+21 degrees
+mu_14_21 = [] #value with error
+
+for MW_ch in range(int(min(data_14_21_degrees['MW_Nr'][:])), int(max(data_14_21_degrees['MW_Nr'][:]))+1):
+
+    binning = 200
+    key = False
+
+    ####### Fit a gaussian
+    def gaussian(x, a, mean, sigma):
+        return a * np.exp(-((x - mean)**2 / (2 * sigma**2)))
+
+    #Evaluate the histogram
+    histo, bins_edge = np.histogram(data_14_21_degrees['M_Q'][condition_MW_14_21 & (data_14_21_degrees['M_Q'][:]>2.8) & (data_14_21_degrees['M_Q'][:]<3.2) & (data_14_21_degrees['MW_Nr'][:]==MW_ch)], bins=binning)
+    bins_edge = bins_edge[:-1]
+
+    try:
+        popt, pcov = curve_fit(gaussian, bins_edge, histo, bounds=((min(histo), 2.9, 0.001), (max(histo)+max(histo)*0.005, 3.1, 0.0081)))
+        i = np.linspace(2.98, 3.02, 1000)
+        key = True
+        mu_14_21.append(np.array([popt[1],pcov[1][1]]))
+    except:
+        mu_14_21.append(np.array([0,0]))
+
+
+    ############# choose plot case ##################
+    #Plot_tag = "fits one by one"
+    Plot_tag = "fitted same plot"
+
+    if Plot_tag == "fits one by one":
+        M_Q_with_ch_MWNr_fit_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_MW_14_21 & (data_14_21_degrees['M_Q'][:]>2.8) & (data_14_21_degrees['M_Q'][:]<3.2) & (data_14_21_degrees['MW_Nr'][:]==MW_ch)]]) #Create the base with the variables in a object
+        M_Q_with_ch_MWNr_fit_14_21.SetFigSize(12,7)
+        M_Q_with_ch_MWNr_fit_14_21.SetBinX(binning)
+        M_Q_with_ch_MWNr_fit_14_21.SetFigTitle(r'M_Q with MW_Nr = %i        14$\degree$+21$\degree$' %MW_ch, 20)
+        M_Q_with_ch_MWNr_fit_14_21.SetLabelX('M_Q', 20)
+        M_Q_with_ch_MWNr_fit_14_21.SetLabelY('counts', 20)
+        M_Q_with_ch_MWNr_fit_14_21.SetSizeTicksX(10)
+        M_Q_with_ch_MWNr_fit_14_21.SetLimX((2.8,3.2))
+        M_Q_with_ch_MWNr_fit_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+        M_Q_with_ch_MWNr_fit_14_21.Histo_1D() #Draw it
+
+        if key: #to plot in the same pad as M_Q_with_ch_MWNr_fit_14_21
+            plt.plot(i, gaussian(i, *popt), 'r')
+            plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        ######### Save and show the created figure
+        M_Q_with_ch_MWNr_fit_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/M_Q_per_MWNr_fit_gauss/14+21degrees/')
+        M_Q_with_ch_MWNr_fit_14_21.SaveFig('M_Q_with_ch_%i_MWNr_fit_14_21' %MW_ch)
+        M_Q_with_ch_MWNr_fit_14_21.Show(1) #show during 1 seconds, the close authomatically
+        M_Q_with_ch_MWNr_fit_14_21.Close() #close all windows, axes and figures running backend
+        del M_Q_with_ch_MWNr_fit_14_21 #erase M_Q_with_ch_MWNr_14_21 (is an object)
+
+    elif Plot_tag == "fitted same plot":
+        if key:
+            plt.plot(i, gaussian(i, *popt), label='MW_pad N: %i' %MW_ch)
+            #plt.text(0.85, 0.5, r'$\mu$ = %.7f $\pm$ %.7f' %(popt[1],pcov[1][1]) , fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+
+        if MW_ch == int(max(data_14_21_degrees['MW_Nr'][:])): # if it is the last element in the loop, plot all.
+            mean_value = np.mean([i[0] for i in mu_14_21])
+            mean_value_error = np.mean([i[1] for i in mu_14_21])
+            plt.text(0.15, 0.55, r'$\mu$_mean_all = %.7f $\pm$ %.7f' %(mean_value,mean_value_error) , fontsize=10, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='white', edgecolor='red', pad=8.0), ha='center', va='center')
+            plt.legend()
+            print('\n')
+            print('Saving figure...')
+            figure = plt.gcf() # get current figure
+            figure.suptitle(r'Fitted gaussians per MW_Ch in 14$\degree$+21$\degree$')
+            figure.set_size_inches(13, 8)
+            plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/mean_gaussian_values_14_21.png')
+            print('mean_gaussian_values_14_21.png figure was saved in: ' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/' )
+            print('\n')
+            plt.show(block=False) #show every gaussian fit plot in the same pad during 1 second
+            plt.pause(1)
+            plt.close()
+
+        else:
+            continue
+
+    del histo
+    del bins_edge
+
+mu_14_21 = np.asarray(mu_14_21)
+
+############# Off_ToF 14+21 degrees
+
+Off_ToF_14_21_MW_Nr_array = []
+
+for MW_ch in range(int(min(data_14_21_degrees['MW_Nr'][:])), int(max(data_14_21_degrees['MW_Nr'][:]))+1):
+    T = data_14_21_degrees['T'][condition_MW_14_21 & (data_14_21_degrees['MW_Nr'][:]==MW_ch)]
+    D = data_14_21_degrees['D'][condition_MW_14_21 & (data_14_21_degrees['MW_Nr'][:]==MW_ch)]
+    Brho = data_14_21_degrees['Brho'][condition_MW_14_21 & (data_14_21_degrees['MW_Nr'][:]==MW_ch)]
+    K = (3.105 * D)/(29.9792458 * Brho)
+    Delta2 = 3**2 - mu_14_21[MW_ch-1][0]**2
+
+    Off_ToF_14_21_MW_Nr = -T + np.sqrt(T**2 + (K**2)*Delta2)
+    Off_ToF_14_21_MW_Nr_array.append(Off_ToF_14_21_MW_Nr)
+
+    Off_Tof_histo = Plotter([Off_ToF_14_21_MW_Nr]) #Create the base with the variables in a object
+    Off_Tof_histo.SetFigSize(12,7)
+    Off_Tof_histo.SetBinX(100)
+    Off_Tof_histo.SetLimX((-0.25,0.25))
+    Off_Tof_histo.SetFigTitle(r'Off_ToF with MW_Nr = %i        14$\degree$+21$\degree$' %MW_ch, 20)
+    Off_Tof_histo.SetLabelX('Off_ToF', 20)
+    Off_Tof_histo.SetLabelY('counts', 20)
+    Off_Tof_histo.SetSizeTicksX(10)
+    Off_Tof_histo.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.8<M_Q<3.2 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr=%i' %MW_ch)
+    Off_Tof_histo.Histo_1D() #Draw it
+    ######### Save and show the created figure
+    Off_Tof_histo.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/Off_ToF/14+21degrees/')
+    Off_Tof_histo.SaveFig('Off_Tof_with_ch_%i_MWNr_14_21' %MW_ch)
+    Off_Tof_histo.Show(1) #show during 1 seconds, the close authomatically
+    Off_Tof_histo.Close() #close all windows, axes and figures running backend
+    del Off_Tof_histo #erase Off_Tof_histo (is an object)
+
+Off_ToF_14_21_MW_Nr_array = np.asarray(Off_ToF_14_21_MW_Nr_array)
 
 
 
