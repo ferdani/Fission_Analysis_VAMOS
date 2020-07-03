@@ -45,7 +45,7 @@ file_14_21_degrees = 'Analysis_14+21_file_ToF_correction_in_AoverQ_variables' #W
 
 data_14_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_14_degrees) #Array-matrix with our data
 data_21_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_21_degrees) #Array-matrix with our data
-data_14_21_degrees= RAS.Read_hdf5_file(hdf5_folder_path, file_14_21_degrees) #Array-matrix with our data
+data_14_21_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_14_21_degrees) #Array-matrix with our data
 
 #CONDITIONS FOR 14, 21 AND 14+21 (after seeing Charge_states module variables):
 condition_mass_14 = ((data_14_degrees['Xf'][:] > -1500) & (data_14_degrees['Yf'][:] > -1500)
@@ -70,9 +70,9 @@ condition_mass_14_21 = ((data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degr
                 & (data_14_21_degrees['MW_Nr'][:] >= 0))
 
 '''
------------------------------------------------------- Pattern A vs A/Q simulated -----------------------------------------------------------
+------------------------------------------------------ Pattern A vs A/Q simulated and A vs A/Q real data -----------------------------------------------------------
 '''
-
+'''
 fig = plt.figure(figsize=(10,7))
 
 ax1 = fig.add_subplot(111)
@@ -111,11 +111,22 @@ plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
 #A/Q = 3 in red
 AQ_x = np.array([])
 AQ_y = np.array([])
+AQ_x_izq = np.array([])
+AQ_y_izq = np.array([])
+AQ_x_der = np.array([])
+AQ_y_der = np.array([])
 for j in range(0, len(A_Q)):
     for i in range(0, len(A_Q[j])):
         if A_Q[j][i] == 3.0:
             AQ_x = np.append(AQ_x, A_Q[j][i])
             AQ_y = np.append(AQ_y, A[j][i])
+        if (A_Q[j][i] >= 2.963) & (A_Q[j][i] < 3.0):
+            AQ_x_izq = np.append(AQ_x_izq, A_Q[j][i])
+            AQ_y_izq = np.append(AQ_y_izq, A[j][i])
+        if (A_Q[j][i] > 3.0) & (A_Q[j][i] <= 3.035):
+            AQ_x_der = np.append(AQ_x_der, A_Q[j][i])
+            AQ_y_der = np.append(AQ_y_der, A[j][i])
+
 plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
 
 plt.legend()
@@ -123,16 +134,149 @@ plt.legend()
 ax1.set_ylabel(r'A', fontsize=20)
 ax1.set_xlabel(r'A/Q', fontsize=20)
 
-print('Saving figure as:' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/' + 'A_vs_A_Q_pattern' + '.png')
 print('\n')
-plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/' + 'A_vs_A_Q_pattern' + '.png', format='png')
-plt.show()
+print('Saving figure as:' + basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/' + 'A_vs_A_Q_pattern' + '.png')
+print('\n')
+plt.savefig(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/' + 'A_vs_A_Q_pattern' + '.png', format='png')
+plt.close()
+
+######################################################## A vs A/Q with real data and pattern ###########################################################
+condition_zoom_14 = ((data_14_degrees['Xf'][:] > -1500) & (data_14_degrees['Yf'][:] > -1500)
+                & (data_14_degrees['Yf'][:] > -110) & (data_14_degrees['Yf'][:] < 50)
+                & (data_14_degrees['Pf'][:] > -100) & (data_14_degrees['Pf'][:] < 100)
+                & (data_14_degrees['M'][:] < 160) & (data_14_degrees['M'][:] > 100)
+                & (data_14_degrees['M_Q'][:] < 3.5) & (data_14_degrees['M_Q'][:] > 2.6)
+                & (data_14_degrees['MW_Nr'][:] >= 0))
+condition_zoom_21 = ((data_21_degrees['Xf'][:] > -1500) & (data_21_degrees['Yf'][:] > -1500)
+                & (data_21_degrees['Yf'][:] > -110) & (data_21_degrees['Yf'][:] < 50)
+                & (data_21_degrees['Pf'][:] > -100) & (data_21_degrees['Pf'][:] < 100)
+                & (data_21_degrees['M'][:] < 160) & (data_21_degrees['M'][:] > 100)
+                & (data_21_degrees['M_Q'][:] < 3.5) & (data_21_degrees['M_Q'][:] > 2.6)
+                & (data_21_degrees['MW_Nr'][:] >= 0))
+condition_zoom_14_21 = ((data_14_21_degrees['Xf'][:] > -1500) & (data_14_21_degrees['Yf'][:] > -1500)
+                & (data_14_21_degrees['Yf'][:] > -110) & (data_14_21_degrees['Yf'][:] < 50)
+                & (data_14_21_degrees['Pf'][:] > -100) & (data_14_21_degrees['Pf'][:] < 100)
+                & (data_14_21_degrees['M'][:] < 160) & (data_14_21_degrees['M'][:] > 100)
+                & (data_14_21_degrees['M_Q'][:] < 3.5) & (data_14_21_degrees['M_Q'][:] > 2.6)
+                & (data_14_21_degrees['MW_Nr'][:] >= 0))
+################################################################## 14 degrees
+A_vs_A_Q_fit_14 = Plotter([data_14_degrees['M_Q'][condition_zoom_14],data_14_degrees['M'][condition_zoom_14]]) #Create the base with the variables in a object
+A_vs_A_Q_fit_14.SetFigSize(12,7)
+A_vs_A_Q_fit_14.SetBinX(500)
+A_vs_A_Q_fit_14.SetBinY(500)
+A_vs_A_Q_fit_14.SetFigTitle(r'M vs M_Q with pattern        14$\degree$', 20)
+A_vs_A_Q_fit_14.SetLabelX('M_Q', 20)
+A_vs_A_Q_fit_14.SetLabelY('M', 20)
+A_vs_A_Q_fit_14.SetSizeTicksX(10)
+A_vs_A_Q_fit_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 100<M<160 \n 2.6<M_Q<3.5 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr>=0')
+A_vs_A_Q_fit_14.SetLimX((2.6,3.5))
+A_vs_A_Q_fit_14.SetLimY((100,160))
+A_vs_A_Q_fit_14.Histo_2D() #Draw it
+plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
+plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
+plt.legend()
+
+######### Save and show the created figure
+A_vs_A_Q_fit_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/')
+A_vs_A_Q_fit_14.SaveFig('A_vs_A_Q_fit_14')
+A_vs_A_Q_fit_14.Show(1) #show during 1 seconds, the close authomatically
+A_vs_A_Q_fit_14.Close() #close all windows, axes and figures running backend
+del A_vs_A_Q_fit_14 #erase A_vs_A_Q_fit_14 (is an object)
+
+################################################################## 14 degrees
+A_Q_fit_14 = Plotter([data_14_degrees['M_Q'][condition_zoom_14]]) #Create the base with the variables in a object
+A_Q_fit_14.SetFigSize(12,7)
+A_Q_fit_14.SetBinX(500)
+A_Q_fit_14.SetBinY(500)
+A_Q_fit_14.SetFigTitle(r'M vs M_Q with pattern        14$\degree$', 20)
+A_Q_fit_14.SetLabelX('M_Q', 20)
+A_Q_fit_14.SetLabelY('M', 20)
+A_Q_fit_14.SetSizeTicksX(10)
+A_Q_fit_14.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 100<M<160 \n 2.6<M_Q<3.5 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr>=0')
+A_Q_fit_14.SetLimX((2.6,3.5))
+A_Q_fit_14.Histo_1D() #Draw it
+vertical_ax_izq = np.linspace(0,30000,len(AQ_x_izq))
+vertical_ax_der = np.linspace(0,30000,len(AQ_x_der))
+vertical_ax = np.linspace(0,30000,len(AQ_x))
+plt.plot(AQ_x_izq, vertical_ax_izq, '-k', label='2.963<A/Q<3.0')
+plt.plot(AQ_x_der, vertical_ax_der, '-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x, vertical_ax, '-r', label='A/Q = 3.0')
+plt.legend()
+
+######### Save and show the created figure
+A_Q_fit_14.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/')
+A_Q_fit_14.SaveFig('A_Q_fit_14')
+A_Q_fit_14.Show(1) #show during 1 seconds, the close authomatically
+A_Q_fit_14.Close() #close all windows, axes and figures running backend
+del A_Q_fit_14 #erase A_Q_fit_14 (is an object)
+'''
+
+'''
+################################################################## 21 degrees
+A_vs_A_Q_fit_21 = Plotter([data_21_degrees['M_Q'][condition_zoom_21],data_21_degrees['M'][condition_zoom_21]]) #Create the base with the variables in a object
+A_vs_A_Q_fit_21.SetFigSize(12,7)
+A_vs_A_Q_fit_21.SetBinX(500)
+A_vs_A_Q_fit_21.SetBinY(500)
+A_vs_A_Q_fit_21.SetFigTitle(r'M vs M_Q with pattern        21$\degree$', 20)
+A_vs_A_Q_fit_21.SetLabelX('M_Q', 20)
+A_vs_A_Q_fit_21.SetLabelY('M', 20)
+A_vs_A_Q_fit_21.SetSizeTicksX(10)
+A_vs_A_Q_fit_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.6<M_Q<3.5 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr>=0')
+A_vs_A_Q_fit_21.SetLimX((2.6,3.5))
+A_vs_A_Q_fit_21.SetLimY((100,160))
+A_vs_A_Q_fit_21.Histo_2D() #Draw it
+plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
+plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
+plt.legend()
+
+######### Save and show the created figure
+A_vs_A_Q_fit_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_vs_A_Q_including_pattern/')
+A_vs_A_Q_fit_21.SaveFig('A_vs_A_Q_fit_21')
+A_vs_A_Q_fit_21.Show(1) #show during 1 seconds, the close authomatically
+A_vs_A_Q_fit_21.Close() #close all windows, axes and figures running backend
+del A_vs_A_Q_fit_21 #erase A_vs_A_Q_fit_21 (is an object)
+
+
+################################################################## 14+21 degrees
+A_vs_A_Q_fit_14_21 = Plotter([data_14_21_degrees['M_Q'][condition_zoom_14_21],data_14_21_degrees['M'][condition_zoom_14_21]]) #Create the base with the variables in a object
+A_vs_A_Q_fit_14_21.SetFigSize(12,7)
+A_vs_A_Q_fit_14_21.SetBinX(500)
+A_vs_A_Q_fit_14_21.SetBinY(500)
+A_vs_A_Q_fit_14_21.SetFigTitle(r'M vs M_Q with pattern        14$\degree$+21$\degree$', 20)
+A_vs_A_Q_fit_14_21.SetLabelX('M_Q', 20)
+A_vs_A_Q_fit_14_21.SetLabelY('M', 20)
+A_vs_A_Q_fit_14_21.SetSizeTicksX(10)
+A_vs_A_Q_fit_14_21.SetBoxText('Selection:\n Z>0 \n Zi>0 \n 70<M<180 \n 2.6<M_Q<3.5 \n -100<Pf<100 \n -110<Yf<50 \n  Xf>-1500 \n MW_Nr>=0')
+A_vs_A_Q_fit_14_21.SetLimX((2.6,3.5))
+A_vs_A_Q_fit_14_21.SetLimY((100,160))
+A_vs_A_Q_fit_14_21.Histo_2D() #Draw it
+plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
+plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
+plt.legend()
+
+######### Save and show the created figure
+A_vs_A_Q_fit_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_vs_A_Q_including_pattern/')
+A_vs_A_Q_fit_14_21.SaveFig('A_vs_A_Q_fit_14_21')
+A_vs_A_Q_fit_14_21.Show(1) #show during 1 seconds, the close authomatically
+A_vs_A_Q_fit_14_21.Close() #close all windows, axes and figures running backend
+del A_vs_A_Q_fit_14_21 #erase A_vs_A_Q_fit_14_21 (is an object)
+'''
+
 
 
 '''
 ---------------------------------------------------------- M_Q pre-corrections -------------------------------------------------------------
 '''
-
+'''
 ################################################################## 14 degrees
 M_Q_14 = Plotter([data_14_degrees['M_Q'][condition_mass_14]]) #Create the base with the variables in a object
 M_Q_14.SetFigSize(12,7)
@@ -191,13 +335,13 @@ M_Q_14_21.SaveFig('M_Q_14_21_histogram')
 M_Q_14_21.Show(1) #show during 1 seconds, the close authomatically
 M_Q_14_21.Close() #close all windows, axes and figures running backend
 del M_Q_14_21 #erase M_Q_14_21 (is an object)
-
+'''
 
 
 '''
 ---------------------------------------------------- M_Q special zoom plots fitting to a gaussian --------------------------------------------------------
 '''
-
+'''
 ################################################### 14 degrees
 
 binning = 10000
@@ -420,13 +564,13 @@ plt.close()
 del fig
 del ax1
 del ax2
-
+'''
 
 
 '''
 ---------------------------------------------------- M_Q in each MW_Nr --------------------------------------------------------
 '''
-
+'''
 condition_MW_14 = ((data_14_degrees['Xf'][:] > -1500) & (data_14_degrees['Yf'][:] > -1500)
                 & (data_14_degrees['Yf'][:] > -110) & (data_14_degrees['Yf'][:] < 50)
                 & (data_14_degrees['Pf'][:] > -100) & (data_14_degrees['Pf'][:] < 100)
@@ -514,13 +658,13 @@ for i in range(int(min(data_14_21_degrees['MW_Nr'][:])), int(max(data_14_21_degr
     M_Q_with_ch_MWNr_14_21.Show(1) #show during 1 seconds, the close authomatically
     M_Q_with_ch_MWNr_14_21.Close() #close all windows, axes and figures running backend
     del M_Q_with_ch_MWNr_14_21 #erase M_Q_with_ch_MWNr_14_21 (is an object)
-
+'''
 
 
 '''
 ---------------------------------------------------- M_Q in each MW_Nr gaussian fit and Off_ToF --------------------------------------------------------
 '''
-
+'''
 ##################################################### 14 degrees
 mu_14 = [] #value with error
 
@@ -864,7 +1008,7 @@ for MW_ch in range(int(min(data_21_degrees['MW_Nr'][:])), int(max(data_21_degree
     del Off_Tof_histo #erase Off_Tof_histo (is an object)
 
 Off_ToF_21_MW_Nr_array = np.asarray(Off_ToF_21_MW_Nr_array)
-
+'''
 
 
 ##################################################### 14+21 degrees
@@ -877,7 +1021,7 @@ Off_ToF_21_MW_Nr_array = np.asarray(Off_ToF_21_MW_Nr_array)
 '''
 ---------------------------------------------------------- M_Q vs MW_Nr ---------------------------------------------------------------
 '''
-
+'''
 ################################################################## 14 degrees
 M_Q_vs_MWNr_14 = Plotter([data_14_degrees['MW_Nr'][condition_MW_14], data_14_degrees['M_Q'][condition_MW_14]]) #Create the base with the variables in a object
 M_Q_vs_MWNr_14.SetFigSize(12,7)
@@ -942,13 +1086,13 @@ M_Q_vs_MWNr_14_21.SaveFig('M_Q_vs_MWNr_14_21')
 M_Q_vs_MWNr_14_21.Show(1) #show during 1 seconds, the close authomatically
 M_Q_vs_MWNr_14_21.Close() #close all windows, axes and figures running backend
 del M_Q_vs_MWNr_14_21 #erase M_Q_vs_MWNr_14_21 (is an object)
-
+'''
 
 
 '''
 ---------------------------------------------------------- M vs MW_Nr ---------------------------------------------------------------
 '''
-
+'''
 ################################################################## 14 degrees
 M_vs_MWNr_14 = Plotter([data_14_degrees['MW_Nr'][condition_MW_14], data_14_degrees['M'][condition_MW_14]]) #Create the base with the variables in a object
 M_vs_MWNr_14.SetFigSize(12,7)
@@ -1013,3 +1157,4 @@ M_vs_MWNr_14_21.SaveFig('M_vs_MWNr_14_21')
 M_vs_MWNr_14_21.Show(1) #show during 1 seconds, the close authomatically
 M_vs_MWNr_14_21.Close() #close all windows, axes and figures running backend
 del M_vs_MWNr_14_21 #erase M_vs_MWNr_14_21 (is an object)
+'''
