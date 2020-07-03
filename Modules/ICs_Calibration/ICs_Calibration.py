@@ -31,3 +31,15 @@ sys.path.append(Module_path)
 import numpy as np
 import Framework.read_and_save.read_and_save as RAS
 from Plotter.Plotter import Plotter
+
+'''
+---------------------------------------------- Open and read .hdf5 original file like a hdf5 object ----------------------------------------------------------------------------------
+'''
+hdf5_folder_path = basepath + 'Data_hdf5/' + MODULE_name + '_run/' #The folder with files after the calibrations comming from RootA transformed in hdf5
+file_14_degrees = 'Analysis_14_file_ICs_Calibration_variables' #Without .hdf5 extension
+file_21_degrees = 'Analysis_21_file_ICs_Calibration_variables' #Without .hdf5 extension
+file_14_21_degrees = 'Analysis_14+21_file_ICs_Calibration_variables' #Without .hdf5 extension
+
+data_14_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_14_degrees) #Array-matrix with our data
+data_21_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_21_degrees) #Array-matrix with our data
+data_14_21_degrees = RAS.Read_hdf5_file(hdf5_folder_path, file_14_21_degrees) #Array-matrix with our data
