@@ -29,7 +29,7 @@ The control area to run an independent module:
 #python Modules/Module_selector.py 'Charge_states'
 
 #----------------------- 4 - Module - ToF_correction_in_AoverQ -------------------------------------------------
-python -i Modules/Module_selector.py 'ToF_correction_in_AoverQ'
+#python -i Modules/Module_selector.py 'ToF_correction_in_AoverQ'
 
 #----------------------- 5 - Module - ICs_Calibration ----------------------------------------------------------
-#python -i Modules/Module_selector.py 'ICs_Calibration'
+python -i Modules/Module_selector.py 'ICs_Calibration'
