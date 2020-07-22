@@ -85,7 +85,7 @@ def Read_Root_file(Path_to_tree, Tree_name_array, Branches, Tree_selection = Non
                 print('All branches are chosen')
         else:
                 Tree_branches = Branches
-                print('This branches ')
+                print('These branches ')
                 print(Branches)
                 print('are selected')
 

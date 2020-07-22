@@ -120,10 +120,10 @@ for j in range(0, len(A_Q)):
         if A_Q[j][i] == 3.0:
             AQ_x = np.append(AQ_x, A_Q[j][i])
             AQ_y = np.append(AQ_y, A[j][i])
-        if (A_Q[j][i] >= 2.963) & (A_Q[j][i] < 3.0):
+        if (A_Q[j][i] >= 2.965) & (A_Q[j][i] < 3.0):
             AQ_x_izq = np.append(AQ_x_izq, A_Q[j][i])
             AQ_y_izq = np.append(AQ_y_izq, A[j][i])
-        if (A_Q[j][i] > 3.0) & (A_Q[j][i] <= 3.035):
+        if (A_Q[j][i] > 3.0) & (A_Q[j][i] <= 3.03):
             AQ_x_der = np.append(AQ_x_der, A_Q[j][i])
             AQ_y_der = np.append(AQ_y_der, A[j][i])
 
@@ -174,8 +174,8 @@ A_vs_A_Q_fit_14.SetLimY((100,160))
 A_vs_A_Q_fit_14.Histo_2D() #Draw it
 plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
 plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
-plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
-plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.965<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.03')
 plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
 plt.legend()
 
@@ -201,8 +201,6 @@ A_Q_fit_14.Histo_1D() #Draw it
 vertical_ax_izq = np.linspace(0,30000,len(AQ_x_izq))
 vertical_ax_der = np.linspace(0,30000,len(AQ_x_der))
 vertical_ax = np.linspace(0,30000,len(AQ_x))
-plt.plot(AQ_x_izq, vertical_ax_izq, '-k', label='2.963<A/Q<3.0')
-plt.plot(AQ_x_der, vertical_ax_der, '-k', label='3.0<A/Q<3.035')
 plt.plot(AQ_x, vertical_ax, '-r', label='A/Q = 3.0')
 plt.legend()
 
@@ -212,9 +210,9 @@ A_Q_fit_14.SaveFig('A_Q_fit_14')
 A_Q_fit_14.Show(1) #show during 1 seconds, the close authomatically
 A_Q_fit_14.Close() #close all windows, axes and figures running backend
 del A_Q_fit_14 #erase A_Q_fit_14 (is an object)
-'''
 
-'''
+
+
 ################################################################## 21 degrees
 A_vs_A_Q_fit_21 = Plotter([data_21_degrees['M_Q'][condition_zoom_21],data_21_degrees['M'][condition_zoom_21]]) #Create the base with the variables in a object
 A_vs_A_Q_fit_21.SetFigSize(12,7)
@@ -230,13 +228,13 @@ A_vs_A_Q_fit_21.SetLimY((100,160))
 A_vs_A_Q_fit_21.Histo_2D() #Draw it
 plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
 plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
-plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
-plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.965<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.03')
 plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
 plt.legend()
 
 ######### Save and show the created figure
-A_vs_A_Q_fit_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_vs_A_Q_including_pattern/')
+A_vs_A_Q_fit_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/')
 A_vs_A_Q_fit_21.SaveFig('A_vs_A_Q_fit_21')
 A_vs_A_Q_fit_21.Show(1) #show during 1 seconds, the close authomatically
 A_vs_A_Q_fit_21.Close() #close all windows, axes and figures running backend
@@ -258,13 +256,13 @@ A_vs_A_Q_fit_14_21.SetLimY((100,160))
 A_vs_A_Q_fit_14_21.Histo_2D() #Draw it
 plt.plot(q_40_x, q_40_y, '.-w', label='q = 40')
 plt.plot(q_50_x, q_50_y, '.-g', label='q = 50')
-plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.963<A/Q<3.0')
-plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.035')
+plt.plot(AQ_x_izq, AQ_y_izq, '.-k', label='2.965<A/Q<3.0')
+plt.plot(AQ_x_der, AQ_y_der, '.-k', label='3.0<A/Q<3.03')
 plt.plot(AQ_x, AQ_y, '.-r', label='A/Q = 3.0')
 plt.legend()
 
 ######### Save and show the created figure
-A_vs_A_Q_fit_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_vs_A_Q_including_pattern/')
+A_vs_A_Q_fit_14_21.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/A_and_A_Q_including_pattern/')
 A_vs_A_Q_fit_14_21.SaveFig('A_vs_A_Q_fit_14_21')
 A_vs_A_Q_fit_14_21.Show(1) #show during 1 seconds, the close authomatically
 A_vs_A_Q_fit_14_21.Close() #close all windows, axes and figures running backend
