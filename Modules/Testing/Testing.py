@@ -132,27 +132,37 @@ del Bar_d2D_object #erase Bar_diagram_object (is an object)
 
 
 ################################################ Histo_2D() function #############################################################################################
-Histo2D_object = Plotter([Testing_data_hdf5['Brho'][()], Testing_data_hdf5['Brho'][()]]) #Create the base with the variables in a Histo2D_object
+condition = ((Testing_data_hdf5['M_Q'][:] > 1.8) & (Testing_data_hdf5['M_Q'][:] < 3.5))
+
+Histo2D_object = Plotter([Testing_data_hdf5['M_Q'][condition], Testing_data_hdf5['M'][condition]]) #Create the base with the variables in a Histo2D_object
 
 ######### Some options
 Histo2D_object.SetFigSize(10,7)
-Histo2D_object.SetBinX(100)
-Histo2D_object.SetBinY(100)
+Histo2D_object.SetBinX(300)
+Histo2D_object.SetBinY(300)
 Histo2D_object.SetFigTitle('Variable 2 vs Variable 1', 15)
 Histo2D_object.SetNticksX(10)
 Histo2D_object.SetLabelX('Variable 1', 15)
 Histo2D_object.SetLabelY('Variable 2', 15)
 Histo2D_object.SetSizeTicksX(10)
+#Histo2D_object.SetScaleZ('Normalization')
+#Histo2D_object.SetScaleZ('SymLogNorm')
+#Histo2D_object.SetScaleZ('LogNorm')
+#Histo2D_object.SetScaleZ('PowerNorm', 0.5)
 
 ######### Generate the histogram, with weights
-weights = np.ones(len(Testing_data_hdf5['Brho'][()])) #one weight equal one per (Xi, Yi) pair
+weights = np.ones(len(Testing_data_hdf5['Brho'][condition])) #one weight equal one per (Xi, Yi) pair
 Histo2D_object.Histo_2D(weights)
+
+histo_projection_Y = Histo2D_object.ShowProjectionY(x_range=[3.2,3.22], binning=150)
 
 ######### Save and show the created figure
 Histo2D_object.SetOutDir(basepath + 'Modules/' + MODULE_name + '/Outputfiles/Figures/')
 Histo2D_object.SaveFig('figure_TEST_Histo2D')
-Histo2D_object.Show(1) #show during 1 seconds, the close authomatically
+
+Histo2D_object.Show() #show all plots
 Histo2D_object.Close() #close all windows, axes and figures running backend
+
 del Histo2D_object #erase Histo2D (is an object)
 
 
