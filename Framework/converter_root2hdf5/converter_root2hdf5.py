@@ -78,6 +78,43 @@ if (samples == 'All_Trees') or (samples == '14+21') or (samples == '14 + 21'):
                     'r0117_000a', 'r0118_000a', 'r0119_000a', 'r0121_000a','r0122_000a', 'r0123_000a',
                     'r0124_000a', 'r0125_000a','r0126_000a', 'r0127_000a','r0128_000a', 'r0130_000a']
 
+########## Light targets 14 degrees ###############
+if samples == 'Al_14':
+    samples_names = ['r0095_000a', 'r0098_000a', 'r0099_000a']
+if samples == 'Mg_14':
+    samples_names = ['r0101_000a', 'r0102_000a']
+if samples == 'B_14':
+    samples_names = ['r0105_000a']
+if samples == 'Be_14':
+    samples_names = ['r0106_000a']
+if samples == 'Be+Ag_14':
+    samples_names = ['r0107_000a', 'r0108_000a', 'r0109_000a', 'r0110_000a']
+
+########## Light targets 21 degrees ###############
+if samples == 'Al_21':
+    samples_names = ['r0116_000a', 'r0117_000a', 'r0118_000a', 'r0128_000a']
+if samples == 'Mg_21':
+    samples_names = ['r0119_000a', 'r0121_000a', 'r0122_000a', 'r0130_000a']
+if samples == 'B_21':
+    samples_names = ['r0123_000a']
+if samples == 'Be_21':
+    samples_names = ['r0124_000a', 'r0125_000a']
+if samples == 'Be+Ag_21':
+    samples_names = ['r0126_000a', 'r0127_000a']
+
+########## Light targets 14+21 degrees ###############
+if samples == 'Al':
+    samples_names = ['r0095_000a', 'r0098_000a', 'r0099_000a', 'r0116_000a', 'r0117_000a', 'r0118_000a', 'r0128_000a']
+if samples == 'Mg':
+    samples_names = ['r0101_000a', 'r0102_000a', 'r0119_000a', 'r0121_000a', 'r0122_000a', 'r0130_000a']
+if samples == 'B':
+    samples_names = ['r0105_000a', 'r0123_000a']
+if samples == 'Be':
+    samples_names = ['r0106_000a', 'r0124_000a', 'r0125_000a']
+if samples == 'Be+Ag':
+    samples_names = ['r0107_000a', 'r0108_000a', 'r0109_000a', 'r0110_000a', 'r0126_000a', 'r0127_000a']
+
+
 Tree_name_inside = 'AD' #The name of the tree inside the root file
 
 """Create the file_data tree-root to python arrays"""
