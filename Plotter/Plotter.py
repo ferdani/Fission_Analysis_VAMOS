@@ -29,6 +29,7 @@ The predefined functions are:
 import sys, os
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from matplotlib.ticker import NullFormatter
 
@@ -55,9 +56,10 @@ class Plotter(object):
         self.xmin = None; self.xmax = None; self.ymin = None; self.ymax = None; self.zmin = None; self.zmax = None
         self.LabelX = None; self.LabelY = None; self.LabelZ = None
         self.SizeLabelX = None; self.SizeLabelY = None; self.SizeLabelZ = None
-        self.ScaleX = None; self.ScaleY = None;
+        self.ScaleX = None; self.ScaleY = None; self.ScaleZ = None; self.Gamma = None
         self.SizeTicksX = None; self.SizeTicksY = None; self.SizeTicksZ = None;
-        self.BoxText = None; self.Grid = None;
+        self.BoxText = None; self.Grid = None; self.lasso = None; self.cutg = None;
+        self.x_range = None; self.binning = None;
 
         #Case 1:
         if len(args)==1 and type(args[0])==list and len(args[0])>0:
@@ -159,6 +161,11 @@ class Plotter(object):
         '''set ("linear", "log", "symlog", "logit", ...) scale in Y axis'''
         self.ScaleY = scaley
 
+    def SetScaleZ(self, scalez, *gamma):
+        '''set ("Normalize", "LogNorm", "PowerNorm", "SymLogNorm") scale in Z axis'''
+        self.ScaleZ = scalez
+        if gamma: self.Gamma = gamma[0] #used in PowerNorm
+
     def SetSizeTicksX(self, sizex):
         '''set ticks's size in X axis'''
         self.SizeTicksX = sizex
@@ -198,6 +205,10 @@ class Plotter(object):
         '''get the limits in Z axis'''
         return (self.zmin, self.zmax)
 
+    def GetCutg(self):
+        '''get the cutg extracted using Lasso'''
+        return self.cutg
+
 
 ################################# 'Miscellaneous' methods
 
@@ -223,6 +234,46 @@ class Plotter(object):
             plt.savefig(self.outdir + figname + '.png', format='png')
         else:
             raise RuntimeError('You are trying to save without set a path to save figures. Set one with SetOutDir function')
+
+    def Lasso(self):
+        '''Use pointer into figure to select a data region with a lasso, nowadays only works with Histo_2D'''
+        self.lasso = True
+
+    def ShowProjectionX(self, y_range, binning):
+        '''Show counts projection over X axis in 2d-histogram H in one specific y_range'''
+
+        self.y_range = y_range
+        self.binning = binning
+
+        Y_to_hist_values = self.Y_Variable[(self.Y_Variable >= self.y_range[0]) & (self.Y_Variable <= self.y_range[1])]
+        index = np.where(self.Y_Variable == Y_to_hist_values[0]) #index where is first element
+        X_to_hist_values = self.X_Variable[index[0][0]:len(Y_to_hist_values)+index[0][0]]
+        histo_projection, bin_edges = np.histogram(X_to_hist_values, self.binning)
+
+        fig_aux = plt.figure()
+        ax_aux = fig_aux.add_subplot(111)
+        plt.hist(X_to_hist_values, self.binning)
+        ax_aux.set_title('Projection over X in y_range=' + str(self.y_range), fontsize=16)
+
+        return histo_projection_X
+
+    def ShowProjectionY(self, x_range, binning):
+        '''Show counts projection over Y axis in 2d-histogram H in one specific x_range'''
+
+        self.x_range = x_range
+        self.binning = binning
+
+        X_to_hist_values = self.X_Variable[(self.X_Variable >= self.x_range[0]) & (self.X_Variable <= self.x_range[1])]
+        index = np.where(self.X_Variable == X_to_hist_values[0]) #index where is first element
+        Y_to_hist_values = self.Y_Variable[index[0][0]:len(X_to_hist_values)+index[0][0]]
+        histo_projection, bin_edges = np.histogram(Y_to_hist_values, self.binning)
+
+        fig_aux = plt.figure()
+        ax_aux = fig_aux.add_subplot(111)
+        plt.hist(Y_to_hist_values, self.binning)
+        ax_aux.set_title('Projection over Y in x_range=' + str(self.x_range), fontsize=16)
+
+        return histo_projection_Y
 
 
 ################################# PLOT MODES
@@ -508,7 +559,16 @@ class Plotter(object):
         plt.rcParams['agg.path.chunksize'] = 100 #If exist a problem doing zoom is here with chunks. It works with TkAgg matplotlib backend
 
         # Plot 2D histogram using pcolormesh
-        plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet')
+        if self.ScaleZ:
+            if self.ScaleZ == 'Normalization':
+                plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet', norm=colors.Normalize(vmin=-1, vmax=1))
+            elif self.ScaleZ == 'SymLogNorm':
+                plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet', norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, vmin=-1.0, vmax=1.0))
+            elif self.ScaleZ == 'LogNorm':
+                plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet', norm=colors.LogNorm(vmin=Hmasked.min(), vmax=Hmasked.max()))
+            elif self.ScaleZ == 'PowerNorm':
+                plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet', norm=colors.PowerNorm(gamma=self.Gamma))
+        else: plt.pcolormesh(xedges,yedges,Hmasked, cmap='jet')
 
         cbar = plt.colorbar()
         cbar.ax.set_ylabel('Counts')
@@ -542,6 +602,34 @@ class Plotter(object):
         if self.SizeTicksY: ax.tick_params(axis='y', labelsize=self.SizeTicksY)
 
         if self.BoxText: plt.text(0.92, 0.8, s=self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
+
+        if self.lasso:
+            pts = ax.scatter(self.X_Variable, self.Y_Variable, s=1, c='black', alpha=0.0)
+            selector = SelectFromCollection(ax, pts)
+
+            def accept(event):
+                if event.key == "enter":
+                    #print("Selected points:")
+                    #print(selector.xys[selector.ind])
+                    selector.disconnect()
+                    if self.FigTitle: ax.set_title(self.FigTitle, fontsize=self.SizeTitle, color='k')
+                    else: ax.set_title("")
+                    cutg_0_1 = selector.xys[selector.ind].data #the data inside lasso
+                    cutg_0 = np.array([i[0] for i in cutg_0_1]) #the first data column (x-position)
+
+                    # Extract the indices in original Branch to apply as a cut in all branches. (with one branch is sufficient, same lenght)
+                    xsorted = np.argsort(self.X_Variable)
+                    ypos = np.searchsorted(self.X_Variable[xsorted], cutg_0)
+                    cutg_indices = xsorted[ypos]
+
+                    woduplicates = list(set(cutg_indices)) #if one cross lasso, one point will be repeated. With set a new array is created without duplicated values
+                    woduplicates.sort() #it is neccesary order it
+                    np.asarray(woduplicates) #preference to work with arrays
+
+                    self.cutg = woduplicates #Now this is a cutg to apply to each branch
+
+            ax.set_title("Press enter to accept selected points", fontsize=25, color='r')
+            fig.canvas.mpl_connect("key_press_event", accept)
 
         return fig
 
@@ -727,3 +815,78 @@ class Plotter(object):
         if self.BoxText: plt.text(0.92, 0.8, self.BoxText, fontsize=12, color='black', transform=plt.gcf().transFigure, bbox=dict(facecolor='none', edgecolor='blue', pad=8.0), ha='center', va='center')
 
         return fig
+
+
+
+##########################################################################################################################################################################################################
+
+"""
+===================
+Dani_Lasso based on Matplotlib Selector Demo: https://matplotlib.org/3.2.2/gallery/widgets/lasso_selector_demo_sgskip.html
+===================
+
+Interactively selecting data points with the lasso tool.
+
+This examples plots a scatter plot. You can then select a few points by drawing
+a lasso loop around the points on the graph. To draw, just click
+on the graph, hold, and drag it around the points you need to select.
+"""
+
+from matplotlib.widgets import LassoSelector
+from matplotlib.path import Path
+
+class SelectFromCollection:
+    """Select indices from a matplotlib collection using `LassoSelector`.
+
+    Selected indices are saved in the `ind` attribute. This tool fades out the
+    points that are not part of the selection (i.e., reduces their alpha
+    values). If your collection has alpha < 1, this tool will permanently
+    alter the alpha values.
+
+    Note that this tool selects collection objects based on their *origins*
+    (i.e., `offsets`).
+
+    Parameters
+    ----------
+    ax : :class:`~matplotlib.axes.Axes`
+        Axes to interact with.
+
+    collection : :class:`matplotlib.collections.Collection` subclass
+        Collection you want to select from.
+
+    alpha_other : 0 <= float <= 1
+        To highlight a selection, this tool sets all selected points to an
+        alpha value of 1 and non-selected points to `alpha_other`.
+    """
+
+    def __init__(self, ax, collection, alpha_other=0.0):
+        self.canvas = ax.figure.canvas
+        self.collection = collection
+        self.alpha_other = alpha_other
+
+        self.xys = collection.get_offsets()
+        self.Npts = len(self.xys)
+
+        # Ensure that we have separate colors for each object
+        self.fc = collection.get_facecolors()
+        if len(self.fc) == 0:
+            raise ValueError('Collection must have a facecolor')
+        elif len(self.fc) == 1:
+            self.fc = np.tile(self.fc, (self.Npts, 1))
+
+        self.lasso = LassoSelector(ax, onselect=self.onselect)
+        self.ind = []
+
+    def onselect(self, verts):
+        path = Path(verts)
+        self.ind = np.nonzero(path.contains_points(self.xys))[0]
+        self.fc[:, -1] = self.alpha_other
+        self.fc[self.ind, -1] = 1
+        self.collection.set_facecolors(self.fc)
+        self.canvas.draw_idle()
+
+    def disconnect(self):
+        self.lasso.disconnect_events()
+        self.fc[:, -1] = 1
+        self.collection.set_facecolors(self.fc)
+        self.canvas.draw_idle()
