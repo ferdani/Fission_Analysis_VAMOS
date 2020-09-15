@@ -20,7 +20,7 @@ The control area to run an independent module:
 ####################################### Modules Command List ###################################################
 
 #----------------------- 0 - Module - Testing ------------------------------------------------------------------
-#python -i Modules/Module_selector.py 'Testing'
+python -i Modules/Module_selector.py 'Testing'
 
 #----------------------- 1 - Module - DCs_Calibration ----------------------------------------------------------
 #python -i Modules/Module_selector.py 'DCs_Calibration'
@@ -38,7 +38,7 @@ The control area to run an independent module:
 #python -i Modules/Module_selector.py 'ICs_Calibration'
 
 #----------------------- 6 - Module - ToF_correction_2idea ----------------------------------------------------------
-python -i Modules/Module_selector.py 'ToF_correction_2idea'
+#python -i Modules/Module_selector.py 'ToF_correction_2idea'
 
 #----------------------- 7 - Module - Aluminium_targets_review ----------------------------------------------------------
 #python -i Modules/Module_selector.py 'Aluminium_targets_review'
