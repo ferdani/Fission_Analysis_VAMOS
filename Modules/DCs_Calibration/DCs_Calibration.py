@@ -492,7 +492,7 @@ for ch in Channels_2nd:
     func_2nd_order = TF1('func_2nd_order', '[0] + [1]*x + [2]*x**2', 0, 2700)
 
     #By default
-    xmin = 0.0
+    xmin = 250.0
     xmax = 2700.0
 
     fit_2nd_order = histo_Q60_vs_ch.Fit('func_2nd_order', 'SQ', '', xmin, xmax)
@@ -516,19 +516,7 @@ for ch in Channels_2nd:
     DC2_new = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal', 'r+')
     content_DC2_new = DC2_new.readlines() #reads line by line and out puts a list of each line
 
-    #Re-evaluate the parameters with the new values
-    data_line_DC2_new = content_DC2_new[ch+15].split() #+15 skipping the first lines
-    a0_old = float(data_line_DC2_new[0])
-    a1_old = float(data_line_DC2_new[1])
-    a2_old = float(data_line_DC2_new[2]) #It is zero generally, so it is not important and is not apply
-
-    #Second correction over previous values
-    a0 = p0 + p1 * a0_old
-    a1 = p1 * a1_old
-    #------------------work in progress. Is not clear and right---------------#
-    a2 = (p2 * a0_old**2 + p2 * a1_old**2 + 2*p2 * a0_old * a1_old)*10**(-6)
-    #-------------------------------------------------------------------------#
-    content_DC2_new[ch+15] = "%f  %f  %f // %i ch %s\n" %(a0, a1, a2, 2, str(ch)) #replaces content_DC2_new
+    content_DC2_new[ch+15] = "%f  %f  %f // %i ch %s\n" %(p0, p1, p2, 2, str(ch)) #replaces content_DC2_new
 
     DC2_new.close()
     DC2_new = open(Module_path + '/Outputfiles/Calibration_files/' + 'DC2_new.cal', 'w') #clears content of file.
