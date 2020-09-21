@@ -248,7 +248,7 @@ class Plotter(object):
         Y_to_hist_values = self.Y_Variable[(self.Y_Variable >= self.y_range[0]) & (self.Y_Variable <= self.y_range[1])]
         index = np.where(self.Y_Variable == Y_to_hist_values[0]) #index where is first element
         X_to_hist_values = self.X_Variable[index[0][0]:len(Y_to_hist_values)+index[0][0]]
-        histo_projection, bin_edges = np.histogram(X_to_hist_values, self.binning)
+        histo_projection_X, bin_edges = np.histogram(X_to_hist_values, self.binning)
 
         fig_aux = plt.figure()
         ax_aux = fig_aux.add_subplot(111)
@@ -266,7 +266,7 @@ class Plotter(object):
         X_to_hist_values = self.X_Variable[(self.X_Variable >= self.x_range[0]) & (self.X_Variable <= self.x_range[1])]
         index = np.where(self.X_Variable == X_to_hist_values[0]) #index where is first element
         Y_to_hist_values = self.Y_Variable[index[0][0]:len(X_to_hist_values)+index[0][0]]
-        histo_projection, bin_edges = np.histogram(Y_to_hist_values, self.binning)
+        histo_projection_Y, bin_edges = np.histogram(Y_to_hist_values, self.binning)
 
         fig_aux = plt.figure()
         ax_aux = fig_aux.add_subplot(111)
